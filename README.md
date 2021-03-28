@@ -1,1 +1,7 @@
 # AkiyaDeGo
+
+## nginx
+
+```
+$ make nginx
+```
