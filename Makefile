@@ -23,7 +23,7 @@ nginx: ## nginxのセットアップ
 ###############
 .PHONY: kill-app-process
 kill-app-process: ## ローカルのアプリプロセスを殺す
-	kill $(shell lsof -i :8080 -t)
+	(kill $(shell lsof -i :8080 -t)) || echo ":8080で動いてるプロセスはありません"
 
 .PHONY: build-app
 build-app: ## アプリのビルド
