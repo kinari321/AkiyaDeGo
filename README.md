@@ -5,3 +5,9 @@
 ```
 $ make nginx
 ```
+
+## deploy
+
+```
+$ make deploy
+```
