@@ -1,15 +1,23 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
+    "html/template"
+    "log"
+   	"net/http"
+
+    "github.com/playree/goingtpl"
 )
 
-func handler(writer http.ResponseWriter, request *http.Request) {
-	fmt.Fprintf(writer, "空き家を捕まえましょう! %s", request.URL.Path[1:])
+func main() {
+    // テンプレートのディレクトリを設定
+    goingtpl.SetBaseDir("./templates")
+
+    http.HandleFunc("/", handleTest)
+    log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-func main() {
-	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+func handleTest(w http.ResponseWriter, r *http.Request) {
+    // parent.htmlをパース
+    tpl := template.Must(goingtpl.ParseFile("index.html"))
+    tpl.Execute(w, nil)
 }
