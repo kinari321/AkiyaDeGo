@@ -1,26 +1,28 @@
 package main
 
 import (
-    "html/template"
-    "log"
-   	"net/http"
-
-    "github.com/playree/goingtpl"
+	"AkiyaDeGo/config"
+	"github.com/playree/goingtpl"
+    "fmt"
+	"html/template"
+	"log"
+	"net/http"
 )
 
 func main() {
-    // テンプレートのディレクトリを設定
-    goingtpl.SetBaseDir("./app/views/templates")
+	fmt.Println(config.Config.Port)
 
-    http.HandleFunc("/", handleTest)
-    // http.HandleFunc("/post", handleTest2)
-    log.Fatal(http.ListenAndServe(":8080", nil))
+	goingtpl.SetBaseDir("./app/views/templates")
+
+	http.HandleFunc("/", handleTest)
+	// http.HandleFunc("/post", handleTest2)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func handleTest(w http.ResponseWriter, r *http.Request) {
-    // parent.htmlをパース
-    tpl := template.Must(goingtpl.ParseFile("layout.html"))
-    tpl.Execute(w, nil)
+	// parent.htmlをパース
+	tpl := template.Must(goingtpl.ParseFile("layout.html"))
+	tpl.Execute(w, nil)
 }
 
 /*
