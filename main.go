@@ -11,6 +11,7 @@ import (
 
 func main() {
 	fmt.Println(config.Config.Port)
+    log.Println("test")
 
 	goingtpl.SetBaseDir("./app/views/templates")
 
