@@ -17,6 +17,7 @@ func main() {
 
 	http.HandleFunc("/top/", handleTop)
     http.HandleFunc("/", handleMain)
+    http.HandleFunc("/post/", handlePost)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
@@ -27,5 +28,10 @@ func handleTop(w http.ResponseWriter, r *http.Request) {
 
 func handleMain(w http.ResponseWriter, r *http.Request) {
     tpl := template.Must(goingtpl.ParseFile("index.html"))
+    tpl.Execute(w, nil)
+}
+
+func handlePost(w http.ResponseWriter, r *http.Request) {
+    tpl := template.Must(goingtpl.ParseFile("post.html"))
     tpl.Execute(w, nil)
 }
