@@ -15,21 +15,17 @@ func main() {
 
 	goingtpl.SetBaseDir("./app/views/templates")
 
-	http.HandleFunc("/", handleTest)
-	// http.HandleFunc("/post", handleTest2)
+	http.HandleFunc("/top/", handleTop)
+    http.HandleFunc("/", handleMain)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-func handleTest(w http.ResponseWriter, r *http.Request) {
-	// parent.htmlをパース
-	tpl := template.Must(goingtpl.ParseFile("layout.html"))
+func handleTop(w http.ResponseWriter, r *http.Request) {
+	tpl := template.Must(goingtpl.ParseFile("top.html"))
 	tpl.Execute(w, nil)
 }
 
-/*
-func handleTest2(w http.ResponseWriter, r *http.Request) {
-    // parent.htmlをパース
-    tpl := template.Must(goingtpl.ParseFile("index2.html"))
+func handleMain(w http.ResponseWriter, r *http.Request) {
+    tpl := template.Must(goingtpl.ParseFile("index.html"))
     tpl.Execute(w, nil)
 }
-*/
