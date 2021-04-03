@@ -8,7 +8,7 @@ import (
 )
 
 func handleTop(w http.ResponseWriter, r *http.Request) {
-	generateHTML(w, "layout", "top")
+	generateHTML(w, nil, "layout", "top")
 }
 
 var err error
