@@ -1,15 +1,19 @@
 package controllers
 
 import (
+	"github.com/playree/goingtpl"
 	"html/template"
 	"log"
 	"net/http"
-
-	"github.com/playree/goingtpl"
 )
+
+func handleTop(w http.ResponseWriter, r *http.Request) {
+	generateHTML(w, "layout", "top")
+}
 
 var err error
 
+/*
 func handleTop(w http.ResponseWriter, r *http.Request) {
 	goingtpl.SetBaseDir("./app/views/templates")
 	tpl := template.Must(goingtpl.ParseFile("top.html"))
@@ -18,6 +22,7 @@ func handleTop(w http.ResponseWriter, r *http.Request) {
 	}
 	tpl.Execute(w, nil)
 }
+*/
 
 func handleMain(w http.ResponseWriter, r *http.Request) {
 	goingtpl.SetBaseDir("./app/views/templates")
