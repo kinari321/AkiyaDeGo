@@ -1,9 +1,10 @@
 package main
 
 import (
+	"AkiyaDeGo/app/controllers"
 	"AkiyaDeGo/config"
+	"fmt"
 	"github.com/playree/goingtpl"
-    "fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -11,14 +12,14 @@ import (
 
 func main() {
 	fmt.Println(config.Config.Port)
-    log.Println("test")
+	log.Println("test")
 
 	goingtpl.SetBaseDir("./app/views/templates")
 
 	http.HandleFunc("/top/", handleTop)
-    http.HandleFunc("/", handleMain)
-    http.HandleFunc("/post/", handlePost)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	http.HandleFunc("/", handleMain)
+	http.HandleFunc("/post/", handlePost)
+	controllers.StartMainServer()
 }
 
 func handleTop(w http.ResponseWriter, r *http.Request) {
@@ -27,11 +28,11 @@ func handleTop(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleMain(w http.ResponseWriter, r *http.Request) {
-    tpl := template.Must(goingtpl.ParseFile("index.html"))
-    tpl.Execute(w, nil)
+	tpl := template.Must(goingtpl.ParseFile("index.html"))
+	tpl.Execute(w, nil)
 }
 
 func handlePost(w http.ResponseWriter, r *http.Request) {
-    tpl := template.Must(goingtpl.ParseFile("post.html"))
-    tpl.Execute(w, nil)
+	tpl := template.Must(goingtpl.ParseFile("post.html"))
+	tpl.Execute(w, nil)
 }
