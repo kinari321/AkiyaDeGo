@@ -11,6 +11,10 @@ func handleTop(w http.ResponseWriter, r *http.Request) {
 	generateHTML(w, nil, "layout", "top")
 }
 
+func handleMain(w http.ResponseWriter, r *http.Request) {
+	generateHTML(w, nil, "layout", "index")
+}
+
 var err error
 
 /*
@@ -23,7 +27,7 @@ func handleTop(w http.ResponseWriter, r *http.Request) {
 	tpl.Execute(w, nil)
 }
 */
-
+/*
 func handleMain(w http.ResponseWriter, r *http.Request) {
 	goingtpl.SetBaseDir("./app/views/templates")
 	tpl := template.Must(goingtpl.ParseFile("index.html"))
@@ -32,7 +36,7 @@ func handleMain(w http.ResponseWriter, r *http.Request) {
 	}
 	tpl.Execute(w, nil)
 }
-
+*/
 func handlePost(w http.ResponseWriter, r *http.Request) {
 	goingtpl.SetBaseDir("./app/views/templates")
 	tpl := template.Must(goingtpl.ParseFile("post.html"))
