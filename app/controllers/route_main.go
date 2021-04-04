@@ -15,3 +15,7 @@ func handleMain(w http.ResponseWriter, r *http.Request) {
 func handlePost(w http.ResponseWriter, r *http.Request) {
 	generateHTML(w, nil, "layout", "post")
 }
+
+func handleArticle(w http.ResponseWriter, r *http.Request) {
+	generateHTML(w, nil, "layout", "sampleArticle")
+}

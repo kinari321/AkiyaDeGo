@@ -24,5 +24,6 @@ func StartMainServer() error {
 	http.HandleFunc("/top/", handleTop)
 	http.HandleFunc("/", handleMain)
 	http.HandleFunc("/post/", handlePost)
+	http.HandleFunc("/article/", handleArticle)
 	return http.ListenAndServe(":"+config.Config.Port, nil)
 }
