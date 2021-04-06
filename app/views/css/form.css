@@ -1,15 +1,7 @@
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    font-family: 
-      "Hiragino Kaku Gothic Pro",
-      "ヒラギノ角ゴ Pro",
-      "Yu Gothic Medium",
-      "游ゴシック Medium", 
-      YuGothic, 
-      "游ゴシック体", 
-      "メイリオ", 
-      sans-serif;
+    font-family: "Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;
   }
   
   .form-signin {

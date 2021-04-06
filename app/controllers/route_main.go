@@ -5,14 +5,14 @@ import (
 )
 
 func handleTop(w http.ResponseWriter, r *http.Request) {
-	generateHTML(w, nil, "layout", "top")
+	generateHTML(w, nil, "layout", "public_navbar", "top")
 }
 func handleMain(w http.ResponseWriter, r *http.Request) {
-	generateHTML(w, nil, "layout", "index")
+	generateHTML(w, nil, "layout", "public_navbar", "index")
 }
 func handlePost(w http.ResponseWriter, r *http.Request) {
-	generateHTML(w, nil, "layout", "post")
+	generateHTML(w, nil, "layout", "public_navbar", "post")
 }
 func handleSignup(w http.ResponseWriter, r *http.Request) {
-	generateHTML(w, nil, "layout", "signup")
+	generateHTML(w, nil, "layout", "public_navbar", "signup")
 }
