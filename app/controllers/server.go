@@ -25,5 +25,6 @@ func StartMainServer() error {
 	http.HandleFunc("/", handleMain)
 	http.HandleFunc("/post/", handlePost)
 	http.HandleFunc("/signup/", handleSignup)
+	http.HandleFunc("/login/", handleLogin)
 	return http.ListenAndServe(":"+config.Config.Port, nil)
 }
