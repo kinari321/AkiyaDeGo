@@ -1,15 +1,18 @@
 package main
 
 import (
-	"AkiyaDeGo/app/controllers"
-	"AkiyaDeGo/config"
+	// "AkiyaDeGo/app/controllers"
+	"AkiyaDeGo/app/models"
+	// "AkiyaDeGo/config"
 	"fmt"
-	"log"
+	// "log"
 )
 
 func main() {
-	fmt.Println(config.Config.Port)
-	log.Println("test")
+	// fmt.Println(config.Config.Port)
+	// log.Println("test")
 
-	controllers.StartMainServer()
+	// controllers.StartMainServer()
+
+	fmt.Println(models.Db)
 }
