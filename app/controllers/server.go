@@ -4,13 +4,13 @@ import (
 	"AkiyaDeGo/config"
 	"fmt"
 	"html/template"
-	"log"
+	// "log"
 	"net/http"
 )
 
 func generateHTML(w http.ResponseWriter, data interface{}, filenames ...string) {
-	log.Println("helloworld")
-	fmt.Println("helloworld")
+	// log.Println("helloworld")
+	// fmt.Println("helloworld")
 	var files []string
 	for _, file := range filenames {
 		files = append(files, fmt.Sprintf("app/views/templates/%s.html", file))
