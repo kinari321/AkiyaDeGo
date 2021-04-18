@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -13,7 +13,9 @@ func handleMain(w http.ResponseWriter, r *http.Request) {
 }
 func handlePost(w http.ResponseWriter, r *http.Request) {
 	generateHTML(w, nil, "layout", "public_navbar", "post")
-	fmt.Println("postにきました")
+	if r.Method == "POST" {
+		log.Println("送信されました")
+	}
 }
 func handleSignup(w http.ResponseWriter, r *http.Request) {
 	generateHTML(w, nil, "layout", "public_navbar", "signup")
