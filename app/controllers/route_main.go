@@ -1,9 +1,16 @@
 package controllers
 
 import (
-	"log"
+	"fmt"
 	"net/http"
 )
+
+type Post struct {
+	Title      string
+	Category   string
+	Prefecture string
+	Opinion    string
+}
 
 func handleTop(w http.ResponseWriter, r *http.Request) {
 	generateHTML(w, nil, "layout", "public_navbar", "top")
@@ -14,7 +21,13 @@ func handleMain(w http.ResponseWriter, r *http.Request) {
 func handlePost(w http.ResponseWriter, r *http.Request) {
 	generateHTML(w, nil, "layout", "public_navbar", "post")
 	if r.Method == "POST" {
-		log.Println("送信されました")
+		post := Post{
+			Title:      r.PostFormValue("タイトル"),
+			Category:   r.PostFormValue("種類"),
+			Prefecture: r.PostFormValue("都道府県"),
+			Opinion:    r.PostFormValue("freeans"),
+		}
+		fmt.Println(post)
 	}
 }
 func handleSignup(w http.ResponseWriter, r *http.Request) {
