@@ -33,7 +33,7 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		multiLogFile := io.MultiWriter(txt)
+		multiLogFile := io.Writer(txt)
 		log.SetOutput(multiLogFile)
 		log.Println(post)
 	}
