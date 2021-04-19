@@ -1,8 +1,10 @@
 package controllers
 
 import (
-	"fmt"
+	"io"
+	"log"
 	"net/http"
+	"os"
 )
 
 type Post struct {
@@ -27,7 +29,13 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 			Prefecture: r.PostFormValue("都道府県"),
 			Opinion:    r.PostFormValue("freeans"),
 		}
-		fmt.Println(post)
+		txt, err := os.OpenFile("a.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		multiLogFile := io.MultiWriter(txt)
+		log.SetOutput(multiLogFile)
+		log.Println(post)
 	}
 }
 func handleSignup(w http.ResponseWriter, r *http.Request) {
