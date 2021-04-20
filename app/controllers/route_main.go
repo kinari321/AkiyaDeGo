@@ -33,7 +33,13 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		fmt.Fprintln(txt, post)
+		fmt.Fprintln(txt, "タイトル：	"+post.Title)
+		fmt.Fprintln(txt, "種類：　　　"+post.Category)
+		fmt.Fprintln(txt, "都道府県：	"+post.Prefecture)
+		fmt.Fprintln(txt, "body-start")
+		fmt.Fprintln(txt, post.Opinion)
+		fmt.Fprintln(txt, "body-end")
+		fmt.Fprintln(txt, "")
 	}
 }
 func handleSignup(w http.ResponseWriter, r *http.Request) {
