@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -34,7 +33,7 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		fmt.Fprintln(io.Writer(txt), post)
+		fmt.Fprintln(txt, post)
 	}
 }
 func handleSignup(w http.ResponseWriter, r *http.Request) {
