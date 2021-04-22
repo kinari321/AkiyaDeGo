@@ -3,7 +3,9 @@ package controllers
 import (
 	"bytes"
 	"encoding/base64"
+	"fmt"
 	"github.com/nfnt/resize"
+	"html/template"
 	"image"
 	"image/jpeg"
 	"io"
@@ -14,34 +16,35 @@ import (
 
 func handleUpload(w http.ResponseWriter, r *http.Request) {
 	generateHTML(w, nil, "layout", "public_navbar", "upload")
-	if r.Method != "POST" {
-		http.Error(w, "Allowed POST method only", http.StatusMethodNotAllowed)
-		return
-	}
+	// if r.Method != "POST" {
+	// 	http.Error(w, "Allowed POST method only", http.StatusMethodNotAllowed)
+	// 	return
+	// }
 
-	err := r.ParseMultipartForm(32 << 20) // maxMemory
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	if r.Method == "POST" {
+		err := r.ParseMultipartForm(32 << 20) // maxMemory
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
-	file, _, err := r.FormFile("upload")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	defer file.Close()
+		file, _, err := r.FormFile("upload")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		defer file.Close()
 
-	f, err := os.Create("/tmp/test.jpg")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	defer f.Close()
+		f, err := os.Create("/tmp/test.jpg")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		defer f.Close()
 
-	io.Copy(f, file)
-	// generateHTML(w, nil, "layout", "public_navbar", "upload")
-	http.Redirect(w, r, "/show", http.StatusFound)
+		io.Copy(f, file)
+		http.Redirect(w, r, "/show", http.StatusFound)
+	}
 }
 
 func handleShow(w http.ResponseWriter, r *http.Request) {
@@ -59,17 +62,24 @@ func handleShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeImageWithTemplate(w, "show", &m)
+	generateHTMLWithImage(w, nil, &m, "layout", "public_navbar", "show")
 }
 
-func writeImageWithTemplate(w http.ResponseWriter, tmpl string, m *image.Image) {
+func generateHTMLWithImage(w http.ResponseWriter, data interface{}, m *image.Image, filenames ...string) {
+	var files []string
+	for _, file := range filenames {
+		files = append(files, fmt.Sprintf("app/views/templates/%s.html", file))
+	}
+	templates := template.Must(template.ParseFiles(files...))
+
 	buffer := new(bytes.Buffer)
 	if err := jpeg.Encode(buffer, *m, nil); err != nil {
 		log.Fatalln("Unable to encode image.")
 	}
-
 	str := base64.StdEncoding.EncodeToString(buffer.Bytes())
-	data := map[string]interface{}{"Title": tmpl, "Image": str}
+	image := map[string]interface{}{"Image": str}
 	// renderTemplate(w, tmpl, data)
-	generateHTML(w, data, "layout", "public_navbar", "show")
+	// generateHTML(w, data, "layout", "public_navbar", "show")
+	// templates := template.Must(template.ParseFiles(files...))
+	templates.ExecuteTemplate(w, "layout", image)
 }
