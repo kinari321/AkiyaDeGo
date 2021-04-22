@@ -1,0 +1,12 @@
+{{define "content"}}
+<h1>画像をアップロードする</h1>
+<a href='/top/'>Top</a><br>
+<a href='/post/'>空き家を登録する</a><br>
+<a href='/'>空き家一覧</a><br>
+<form action="/upload" enctype="multipart/form-data" method="post">
+  <p>
+    <input type="file" name="upload" id="upload" multiple="multiple">
+    <input type="submit" value="アップロード" />
+  </p>
+</form>
+{{end}}

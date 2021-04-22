@@ -13,6 +13,7 @@ import (
 )
 
 func handleUpload(w http.ResponseWriter, r *http.Request) {
+	generateHTML(w, nil, "layout", "public_navbar", "upload")
 	if r.Method != "POST" {
 		http.Error(w, "Allowed POST method only", http.StatusMethodNotAllowed)
 		return
@@ -39,7 +40,7 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 	defer f.Close()
 
 	io.Copy(f, file)
-	generateHTML(w, nil, "layout", "public_navbar", "upload")
+	// generateHTML(w, nil, "layout", "public_navbar", "upload")
 	http.Redirect(w, r, "/show", http.StatusFound)
 }
 
