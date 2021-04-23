@@ -15,13 +15,9 @@ import (
 )
 
 func handleUpload(w http.ResponseWriter, r *http.Request) {
-	generateHTML(w, nil, "layout", "public_navbar", "upload")
-	// if r.Method != "POST" {
-	// 	http.Error(w, "Allowed POST method only", http.StatusMethodNotAllowed)
-	// 	return
-	// }
-
-	if r.Method == "POST" {
+	if r.Method == "GET" {
+		generateHTML(w, nil, "layout", "public_navbar", "upload")
+	} else if r.Method == "POST" {
 		err := r.ParseMultipartForm(32 << 20) // maxMemory
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -43,9 +39,36 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 		defer f.Close()
 
 		io.Copy(f, file)
-		http.Redirect(w, r, "/show", 302)
+		http.Redirect(w, r, "/show/", 302)
 	}
 }
+
+// if r.Method == "POST" {
+// 	err := r.ParseMultipartForm(32 << 20) // maxMemory
+// 	if err != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 		return
+// 	}
+
+// 	file, _, err := r.FormFile("upload")
+// 	if err != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 		return
+// 	}
+// 	defer file.Close()
+
+// 	f, err := os.Create("./test.jpg")
+// 	if err != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 		return
+// 	}
+// 	defer f.Close()
+
+// 	io.Copy(f, file)
+// 	http.Redirect(w, r, "/show", 302)
+// }
+// fmt.Println("HelloWorld!3")
+// }
 
 func handleShow(w http.ResponseWriter, r *http.Request) {
 	file, err := os.Open("./test.jpg")
