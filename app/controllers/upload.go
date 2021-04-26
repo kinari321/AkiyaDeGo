@@ -43,33 +43,6 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// if r.Method == "POST" {
-// 	err := r.ParseMultipartForm(32 << 20) // maxMemory
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusInternalServerError)
-// 		return
-// 	}
-
-// 	file, _, err := r.FormFile("upload")
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusInternalServerError)
-// 		return
-// 	}
-// 	defer file.Close()
-
-// 	f, err := os.Create("./test.jpg")
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusInternalServerError)
-// 		return
-// 	}
-// 	defer f.Close()
-
-// 	io.Copy(f, file)
-// 	http.Redirect(w, r, "/show", 302)
-// }
-// fmt.Println("HelloWorld!3")
-// }
-
 func handleShow(w http.ResponseWriter, r *http.Request) {
 	file, err := os.Open("./test.jpg")
 	defer file.Close()
@@ -93,7 +66,6 @@ func generateHTMLWithImage(w http.ResponseWriter, data interface{}, m *image.Ima
 	for _, file := range filenames {
 		files = append(files, fmt.Sprintf("app/views/templates/%s.html", file))
 	}
-	// templates := template.Must(template.ParseFiles(files...))
 
 	buffer := new(bytes.Buffer)
 	if err := jpeg.Encode(buffer, *m, nil); err != nil {
@@ -101,8 +73,6 @@ func generateHTMLWithImage(w http.ResponseWriter, data interface{}, m *image.Ima
 	}
 	str := base64.StdEncoding.EncodeToString(buffer.Bytes())
 	image := map[string]interface{}{"Image": str}
-	// renderTemplate(w, tmpl, data)
-	// generateHTML(w, data, "layout", "public_navbar", "show")
 	templates := template.Must(template.ParseFiles(files...))
 	templates.ExecuteTemplate(w, "layout", image)
 }
