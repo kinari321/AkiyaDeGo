@@ -1,6 +1,7 @@
 package models
 
 import (
+	"crypto/sha1"
 	"database/sql"
 	"fmt"
 	"log"
@@ -34,4 +35,9 @@ func init() {
 		PRIMARY KEY (id));`, tableNameUser)
 
 	Db.Exec(cmdU)
+}
+
+func Encrypt(plaintext string) (cryptext string) {
+	cryptext = fmt.Sprintf("%x", sha1.Sum([]byte(plaintext)))
+	return cryptext
 }
