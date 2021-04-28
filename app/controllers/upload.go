@@ -24,14 +24,15 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		file, _, err := r.FormFile("upload")
+		file, fileHeader, err := r.FormFile("upload")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 		defer file.Close()
 
-		f, err := os.Create("source/test.jpg")
+		uploadedFileName := fileHeader.Filename
+		f, err := os.Create("source/img/" + uploadedFileName)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -44,7 +45,7 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleShow(w http.ResponseWriter, r *http.Request) {
-	file, err := os.Open("source/test.jpg")
+	file, err := os.Open("source/img/")
 	defer file.Close()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
