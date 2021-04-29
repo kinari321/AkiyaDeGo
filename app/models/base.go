@@ -16,6 +16,7 @@ var (
 
 const (
 	tableNameUser = "users"
+	tableNamePost = "post"
 )
 
 func init() {
@@ -33,8 +34,16 @@ func init() {
 		password TEXT NOT NULL,
 		created_at DATETIME NULL,
 		PRIMARY KEY (id));`, tableNameUser)
-
 	Db.Exec(cmdU)
+
+	cmdP := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
+		id INT NOT NULL AUTO_INCREMENT,
+		title TEXT NOT NULL,
+		description TEXT NULL,
+		user_id INT NOT NULL,
+		created_at DATETIME NULL,
+		PRIMARY KEY (id));`, tableNamePost)
+	Db.Exec(cmdP)
 }
 
 func Encrypt(plaintext string) (cryptext string) {
