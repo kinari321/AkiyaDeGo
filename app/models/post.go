@@ -93,3 +93,12 @@ func (u *User) GetPostsByUser() (posts []Post, err error) {
 	rows.Close()
 	return posts, err
 }
+
+func (p *Post) UpdatePost() (err error) {
+	cmd := `UPDATE posts SET title = ?, description = ? WHERE id = ?`
+	_, err = Db.Exec(cmd, p.Title, p.Description, p.ID)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return err
+}
