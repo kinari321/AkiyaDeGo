@@ -102,3 +102,12 @@ func (p *Post) UpdatePost() (err error) {
 	}
 	return err
 }
+
+func (p *Post) DeletePost() (err error) {
+	cmd := `DELETE FROM posts WHERE id = ?`
+	_, err = Db.Exec(cmd, p.ID)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return err
+}
