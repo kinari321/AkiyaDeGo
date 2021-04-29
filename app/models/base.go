@@ -16,7 +16,7 @@ var (
 
 const (
 	tableNameUser = "users"
-	tableNamePost = "post"
+	tableNamePost = "posts"
 )
 
 func init() {
