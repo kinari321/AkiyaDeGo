@@ -11,13 +11,13 @@ func main() {
 	// fmt.Println(config.Config.Port)
 	// fmt.Println(models.Db)
 
-	// u := &models.User{}
-	// u.Name = "test4"
-	// u.Email = "test4@example.com"
-	// u.PassWord = "testtest"
-	// fmt.Println(u)
-	// u.CreateUser()
-	// u, _ := models.GetUser(2)
+	u := &models.User{}
+	u.Name = "test2"
+	u.Email = "test2@example.com"
+	u.PassWord = "testtest"
+	fmt.Println(u)
+	u.CreateUser()
+	// u, _ := models.GetUser()
 	// fmt.Println(u)
 
 	// u.Name = "test2"
@@ -28,16 +28,26 @@ func main() {
 
 	// u.DeleteUser()
 	// user, _ := models.GetUser(4)
+
+	// user, _ := models.GetUser(1)
 	// p := &models.Post{}
-	// p.Title = "4 Post"
-	// p.Description = "4 Description"
-	// p.UserID = user.ID // ここはどうする？
+	// p.Title = "3 Post"
+	// p.Description = "3 Description"
+	// p.UserID = user.ID
 	// fmt.Println(p)
 	// p.CreatePost()
 
-	posts, _ := models.GetPosts()
-	for _, v := range posts {
-		fmt.Println(v)
-	}
+	// posts, _ := models.GetPosts()
+	// for _, v := range posts {
+	// 	fmt.Println(v)
+	// }
+
+	// p, _ := models.GetPost(3)
+	// p.Title = "Update Title"
+	// p.Description = "Update Description"
+	// p.UpdatePost()
+	p, _ := models.GetPost(3)
+	p.DeletePost()
+
 	controllers.StartMainServer()
 }

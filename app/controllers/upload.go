@@ -1,5 +1,7 @@
 package controllers
 
+// show.htmlとpost.htmlで画像をアップロードするためのファイル
+
 import (
 	"bytes"
 	"encoding/base64"
