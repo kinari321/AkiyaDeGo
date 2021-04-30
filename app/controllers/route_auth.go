@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"AkiyaDeGo/app/models"
-	"fmt"
 	"log"
 	"net/http"
 )
@@ -23,7 +22,6 @@ func handleSignup(w http.ResponseWriter, r *http.Request) {
 		if err := user.CreateUser(); err != nil {
 			log.Println(err)
 		}
-		fmt.Println(user)
 		http.Redirect(w, r, "/top/", 302)
 	}
 }
