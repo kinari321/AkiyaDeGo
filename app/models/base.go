@@ -15,8 +15,9 @@ var (
 )
 
 const (
-	tableNameUser = "users"
-	tableNamePost = "posts"
+	tableNameUser    = "users"
+	tableNamePost    = "posts"
+	tableNameSession = "sessions"
 )
 
 func init() {
@@ -27,6 +28,7 @@ func init() {
 	if err := Db.Ping(); err != nil {
 		log.Fatal(err)
 	}
+
 	cmdU := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
 		id INT NOT NULL AUTO_INCREMENT,
 		name TEXT NULL,
@@ -44,6 +46,15 @@ func init() {
 		created_at DATETIME NULL,
 		PRIMARY KEY (id));`, tableNamePost)
 	Db.Exec(cmdP)
+
+	cmdS := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
+		id INT NOT NULL AUTO_INCREMENT,
+		email TEXT NOT NULL,
+		user_id INT NOT NULL,
+		created_at DATETIME NULL,
+		PRIMARY KEY (id));`, tableNameSession)
+	Db.Exec(cmdS)
+
 }
 
 func Encrypt(plaintext string) (cryptext string) {
