@@ -3,20 +3,20 @@ package main
 import (
 	"AkiyaDeGo/app/controllers"
 	"AkiyaDeGo/app/models"
-	// "AkiyaDeGo/config"
+	"AkiyaDeGo/config"
 	"fmt"
 )
 
 func main() {
-	// fmt.Println(config.Config.Port)
-	// fmt.Println(models.Db)
+	fmt.Println(config.Config.Port)
+	fmt.Println(models.Db)
 
-	u := &models.User{}
-	u.Name = "test2"
-	u.Email = "test2@example.com"
-	u.PassWord = "testtest"
-	fmt.Println(u)
-	u.CreateUser()
+	// u := &models.User{}
+	// u.Name = "test2"
+	// u.Email = "test2@example.com"
+	// u.PassWord = "testtest"
+	// fmt.Println(u)
+	// u.CreateUser()
 	// u, _ := models.GetUser()
 	// fmt.Println(u)
 
@@ -46,8 +46,8 @@ func main() {
 	// p.Title = "Update Title"
 	// p.Description = "Update Description"
 	// p.UpdatePost()
-	p, _ := models.GetPost(3)
-	p.DeletePost()
+	// p, _ := models.GetPost(3)
+	// p.DeletePost()
 
 	controllers.StartMainServer()
 }

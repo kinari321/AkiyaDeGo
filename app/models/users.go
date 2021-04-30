@@ -13,6 +13,15 @@ type User struct {
 	CreatedAt time.Time
 }
 
+type Session struct {
+	ID        int
+	Email     string
+	UserID    int
+	CreatedAt time.Time
+}
+
+// ーーーーーーーーーーーーーーーーーーーーーーUSERーーーーーーーーーーーーーーーーーーーーーー
+
 func (u *User) CreateUser() (err error) {
 	cmd := `INSERT INTO users (
  		name,
@@ -60,4 +69,20 @@ func (u *User) DeleteUser() (err error) {
 		log.Fatalln(err)
 	}
 	return err
+}
+
+// ーーーーーーーーーーーーーーーーーーーーーーSESSIONーーーーーーーーーーーーーーーーーーーーーー
+
+func GetUserByEmail(email string) (user User, err error) {
+	user = User{}
+	cmd := `SELECT id, name, email, password, created_at
+	FROM users WHERE email = ?`
+	err = Db.QueryRow(cmd, email).Scan(
+		&user.ID,
+		&user.Name,
+		&user.Email,
+		&user.PassWord,
+		&user.CreatedAt,
+	)
+	return user, err
 }
