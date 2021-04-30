@@ -28,7 +28,6 @@ func (u *User) CreateUser() (err error) {
  		email,
  		password,
  		created_at) VALUES (?, ?, ?, ?)`
-
 	_, err = Db.Exec(cmd,
 		u.Name,
 		u.Email,
@@ -85,4 +84,25 @@ func GetUserByEmail(email string) (user User, err error) {
 		&user.CreatedAt,
 	)
 	return user, err
+}
+
+func (u *User) CreateSession() (session Session, err error) {
+	session = Session{}
+	cmd1 := `INSERT INTO sessions (
+		email,
+		user_id,
+		created_at) VALUES (?, ?, ?)`
+	_, err = Db.Exec(cmd1, u.Email, u.ID, time.Now())
+	if err != nil {
+		log.Println(err)
+	}
+
+	cmd2 := `SELECT id, email, user_id, created_at
+	FROM sessions WHERE user_id = ? AND email = ?`
+	err = Db.QueryRow(cmd2, u.ID, u.Email).Scan(
+		&session.ID,
+		&session.Email,
+		&session.UserID,
+		&session.CreatedAt)
+	return session, err
 }
