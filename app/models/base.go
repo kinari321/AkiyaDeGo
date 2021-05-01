@@ -48,14 +48,14 @@ func init() {
 		PRIMARY KEY (id));`, tableNamePost)
 	Db.Exec(cmdP)
 
-	// cmdS := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
-	// 	id INT NOT NULL AUTO_INCREMENT,
-	// 	uuid TEXT NOT NULL UNIQUE,
-	// 	email TEXT NOT NULL,
-	// 	user_id INT NOT NULL,
-	// 	created_at DATETIME NULL,
-	// 	PRIMARY KEY (id));`, tableNameSession)
-	// Db.Exec(cmdS)
+	cmdS := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
+		id INT NOT NULL AUTO_INCREMENT,
+		uuid TEXT NOT NULL,
+		email TEXT NOT NULL,
+		user_id INT NOT NULL,
+		created_at DATETIME NULL,
+		PRIMARY KEY (id));`, tableNameSession)
+	Db.Exec(cmdS)
 
 }
 
