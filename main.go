@@ -1,34 +1,17 @@
 package main
 
 import (
-	// "AkiyaDeGo/app/controllers"
+	"AkiyaDeGo/app/controllers"
 	"AkiyaDeGo/app/models"
-	// "AkiyaDeGo/config"
+	"AkiyaDeGo/config"
 	"fmt"
-	"log"
+	// "log"
 )
 
 func main() {
-	// fmt.Println(config.Config.Port)
-	// fmt.Println(models.Db)
-	// ーーーーーーーーーーGetUserByEmailーーーーーーーーーー
-	user, _ := models.GetUserByEmail("test2@example.com")
-	fmt.Println(user)
-	// ーーーーーーーーーーGetUserByEmailーーーーーーーーーー
+	fmt.Println(config.Config.Port)
+	fmt.Println(models.Db)
 
-	// ーーーーーーーーーーCreateSessionーーーーーーーーーー
-	session, err := user.CreateSession()
-	if err != nil {
-		log.Println(err)
-	}
-	fmt.Println(session)
-	// ーーーーーーーーーーCreateSessionーーーーーーーーーー
-
-	// ーーーーーーーーーーCreateSessionーーーーーーーーーー
-	valid, _ := session.CheckSession()
-	fmt.Println(valid)
-	// ーーーーーーーーーーCreateSessionーーーーーーーーーー
-
-	// controllers.StartMainServer()
+	controllers.StartMainServer()
 
 }
