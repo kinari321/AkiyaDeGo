@@ -3,10 +3,12 @@ package models
 import (
 	"log"
 	"time"
+	// "github.com/google/uuid"
 )
 
 type User struct {
 	ID        int
+	UUID      string
 	Name      string
 	Email     string
 	PassWord  string
@@ -24,11 +26,13 @@ type Session struct {
 
 func (u *User) CreateUser() (err error) {
 	cmd := `INSERT INTO users (
+		uuid,
  		name,
  		email,
  		password,
- 		created_at) VALUES (?, ?, ?, ?)`
+ 		created_at) VALUES (?, ?, ?, ?, ?)`
 	_, err = Db.Exec(cmd,
+		createUUID(),
 		u.Name,
 		u.Email,
 		Encrypt(u.PassWord),
@@ -41,9 +45,11 @@ func (u *User) CreateUser() (err error) {
 
 func GetUser(id int) (user User, err error) {
 	user = User{}
-	cmd := `SELECT id, name, email, password, created_at FROM users WHERE id = ?`
+	cmd := `SELECT id, uuid, name, email, password, created_at
+	FROM users WHERE id = ?`
 	err = Db.QueryRow(cmd, id).Scan(
 		&user.ID,
+		&user.UUID,
 		&user.Name,
 		&user.Email,
 		&user.PassWord,
@@ -53,7 +59,7 @@ func GetUser(id int) (user User, err error) {
 }
 
 func (u *User) UpdateUser() (err error) {
-	cmd := `UPDATE users SET name = ? email = ? WHERE id = ?`
+	cmd := `UPDATE users SET name = ?, email = ? WHERE id = ?`
 	_, err = Db.Exec(cmd, u.Name, u.Email, u.ID)
 	if err != nil {
 		log.Fatalln(err)
@@ -106,3 +112,38 @@ func (u *User) CreateSession() (session Session, err error) {
 		&session.CreatedAt)
 	return session, err
 }
+
+// func (sess *Session) CheckSession() (valid bool, err error) {
+// 	cmd := `select id, uuid, email, user_id, created_at
+// 	from sessions where uuid = ?`
+
+// 	err = Db.QueryRow(cmd, sess.UUID).Scan(
+// 		&sess.ID,
+// 		&sess.UUID,
+// 		&sess.Email,
+// 		&sess.UserID,
+// 		&sess.CreatedAt)
+
+// 	if err != nil {
+// 		valid = false
+// 		return
+// 	}
+// 	if sess.ID != 0 {
+// 		valid = true
+// 	}
+// 	return valid, err
+// }
+
+// func (sess *Session) DeleteSessionByUUID() (err error) {
+// 	cmd := `delete from sessions where uuid = ?`
+// 	_, err = Db.Exec(cmd, sess.UUID)
+// 	if err != nil {
+// 		log.Fatalln(err)
+// 	}
+// 	return err
+// }
+
+// func createUUID() (uuidobj uuid.UUID) {
+// 	uuidobj, _ = uuid.NewUUID()
+// 	return uuidobj
+// }
