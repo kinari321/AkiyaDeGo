@@ -4,9 +4,9 @@ import (
 	"crypto/sha1"
 	"database/sql"
 	"fmt"
-	"log"
-
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/google/uuid"
+	"log"
 )
 
 var (
@@ -31,6 +31,7 @@ func init() {
 
 	cmdU := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
 		id INT NOT NULL AUTO_INCREMENT,
+		uuid TEXT NOT NULL,
 		name TEXT NULL,
 		email TEXT NOT NULL,
 		password TEXT NOT NULL,
@@ -47,17 +48,23 @@ func init() {
 		PRIMARY KEY (id));`, tableNamePost)
 	Db.Exec(cmdP)
 
-	cmdS := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
-		id INT NOT NULL AUTO_INCREMENT,
-		email TEXT NOT NULL,
-		user_id INT NOT NULL,
-		created_at DATETIME NULL,
-		PRIMARY KEY (id));`, tableNameSession)
-	Db.Exec(cmdS)
+	// cmdS := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
+	// 	id INT NOT NULL AUTO_INCREMENT,
+	// 	uuid TEXT NOT NULL UNIQUE,
+	// 	email TEXT NOT NULL,
+	// 	user_id INT NOT NULL,
+	// 	created_at DATETIME NULL,
+	// 	PRIMARY KEY (id));`, tableNameSession)
+	// Db.Exec(cmdS)
 
 }
 
 func Encrypt(plaintext string) (cryptext string) {
 	cryptext = fmt.Sprintf("%x", sha1.Sum([]byte(plaintext)))
 	return cryptext
+}
+
+func createUUID() (uuidobj uuid.UUID) {
+	uuidobj, _ = uuid.NewUUID()
+	return uuidobj
 }
