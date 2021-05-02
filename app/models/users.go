@@ -3,7 +3,6 @@ package models
 import (
 	"log"
 	"time"
-	// "github.com/google/uuid"
 )
 
 type User struct {
@@ -13,6 +12,7 @@ type User struct {
 	Email     string
 	PassWord  string
 	CreatedAt time.Time
+	Posts     []Post
 }
 
 type Session struct {
@@ -89,8 +89,7 @@ func GetUserByEmail(email string) (user User, err error) {
 		&user.Name,
 		&user.Email,
 		&user.PassWord,
-		&user.CreatedAt,
-	)
+		&user.CreatedAt)
 	return user, err
 }
 
@@ -136,16 +135,25 @@ func (sess *Session) CheckSession() (valid bool, err error) {
 	return valid, err
 }
 
-// func (sess *Session) DeleteSessionByUUID() (err error) {
-// 	cmd := `delete from sessions where uuid = ?`
-// 	_, err = Db.Exec(cmd, sess.UUID)
-// 	if err != nil {
-// 		log.Fatalln(err)
-// 	}
-// 	return err
-// }
+func (sess *Session) DeleteSessionByUUID() (err error) {
+	cmd := `DELETE FROM sessions WHERE uuid = ?`
+	_, err = Db.Exec(cmd, sess.UUID)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return err
+}
 
-// func createUUID() (uuidobj uuid.UUID) {
-// 	uuidobj, _ = uuid.NewUUID()
-// 	return uuidobj
-// }
+func (sess *Session) GetUserBySession() (user User, err error) {
+	user = User{}
+	cmd := `SELECT id, uuid, name, email, created_at FROM users
+	WHERE id = ?`
+	err = Db.QueryRow(cmd, sess.UserID).Scan(
+		&user.ID,
+		&user.UUID,
+		&user.Name,
+		&user.Email,
+		&user.CreatedAt)
+
+	return user, err
+}

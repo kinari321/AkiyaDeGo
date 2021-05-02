@@ -17,9 +17,9 @@ type Post struct {
 func handleTop(w http.ResponseWriter, r *http.Request) {
 	_, err := session(w, r)
 	if err != nil {
-		generateHTML(w, "Hello", "layout", "public_navbar", "top")
+		generateHTML(w, "HELLO", "layout", "public_navbar", "top")
 	} else {
-		http.Redirect(w, r, "/mytop/", 302)
+		http.Redirect(w, r, "/index/", 302)
 	}
 }
 
@@ -49,20 +49,35 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// func handleIndex(w http.ResponseWriter, r *http.Request) {
+// 	_, err := session(w, r)
+// 	if err != nil {
+// 		http.Redirect(w, r, "/top/", 302)
+// 	} else {
+// 		generateHTML(w, nil, "layout", "private_navbar", "index")
+// 	}
+// }
+
+// func handleMytop(w http.ResponseWriter, r *http.Request) {
+// 	_, err := session(w, r)
+// 	if err != nil {
+// 		http.Redirect(w, r, "/top/", 302)
+// 	} else {
+// 		generateHTML(w, nil, "layout", "private_navbar", "mytop")
+// 	}
+// }
+
 func index(w http.ResponseWriter, r *http.Request) {
-	// ログインしているかどうかの判定を取得する
-	_, err := session(w, r)
-	// errがある場合は/top/リダイレクトにさせる
+	sess, err := session(w, r)
 	if err != nil {
-		http.Redirect(w, r, "/top/", 302)
+		http.Redirect(w, r, "/", 302)
 	} else {
-		// セッションがある場合はindex表示させる。を
-		// user, err := sess.GetUserBySession()
-		// if err != nil {
-		// 	log.Println(err)
-		// }
-		// todos, _ := user.GetTodosByUser()
-		// user.Todos = todos
-		generateHTML(w, nil, "layout", "private_navbar", "index")
+		user, err := sess.GetUserBySession()
+		if err != nil {
+			log.Println(err)
+		}
+		posts, _ := user.GetPostsByUser()
+		user.Posts = posts
+		generateHTML(w, user, "layout", "private_navbar", "index")
 	}
 }

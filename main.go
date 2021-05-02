@@ -14,4 +14,15 @@ func main() {
 
 	controllers.StartMainServer()
 
+	// user, _ := models.GetUserByEmail("test@example.com")
+	// fmt.Println(user)
+	// u, _ := models.GetUser(1)
+	// fmt.Println(u)
+
+	// u.Email = "test@example.com"
+	// u.UpdateUser()
+	// u, _ = models.GetUser(1)
+	// user := u.models{}
+	// user.Email = "test@example.com"
+	// user.UpdateUser()
 }
