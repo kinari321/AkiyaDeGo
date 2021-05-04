@@ -6,25 +6,11 @@
 <form role="form" action="/post/save/" form method="post">
   <div class="form-group">
     <p>
-      タイトル：<input type="text" name="タイトル" /><br>
-      <textarea name="freeans" rows="4" cols="40">詳細説明</textarea><br>
+      タイトル：<input type="text" name="title" /><br>
+      <textarea name="description" rows="4" cols="40">詳細説明</textarea><br>
       <input type="submit" value="送信" />　
       <input type="reset" value="取り消し" />
     </p>
   </div>
 </form>
 {{end}}
-
-<!--
-{‌{define "content"}}
-<form role="form" action="/todos/save" method="post">
-  <div class="lead">TodosCreate</div>
-  <div class="form-group">
-    <textarea class="form-control" name="content" id="content" placeholder="Todoを追加" rows="4"></textarea>
-    <br />
-    <br />
-    <button class="btn btn-lg btn-primary pull-right" type="submit">作成</button>
-  </div>
-</form>
-
-{‌{end}} -->

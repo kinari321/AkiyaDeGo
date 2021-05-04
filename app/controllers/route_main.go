@@ -108,8 +108,8 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 		}
 
 		p := &models.Post{}
-		p.Title = r.PostFormValue("タイトル")
-		p.Description = r.PostFormValue("freeans")
+		p.Title = r.PostFormValue("title")
+		p.Description = r.PostFormValue("description")
 		p.UserID = user.ID // 現段階では種類と都道府県はなし
 		if err := p.CreatePost(); err != nil {
 			log.Println(err)
