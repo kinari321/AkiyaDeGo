@@ -34,7 +34,6 @@ func StartMainServer() error {
 
 	http.HandleFunc("/top/", handleTop)
 	http.HandleFunc("/", handleMain)
-	// http.HandleFunc("/post/", handlePost)
 
 	http.HandleFunc("/signup/", handleSignup)
 	http.HandleFunc("/login/", handleLogin)
