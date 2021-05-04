@@ -40,7 +40,7 @@ run-app-with-background: ## アプリを起動
 .PHONY: deploy
 deploy: ## アプリをデプロイ
 	make kill-app-process
-	make go-package-getå
+	make go-package-get
 	make build-app
 	make run-app-with-background
 	curl localhost
