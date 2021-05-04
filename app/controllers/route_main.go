@@ -9,7 +9,7 @@ import (
 func handleTop(w http.ResponseWriter, r *http.Request) {
 	_, err := session(w, r)
 	if err != nil {
-		generateHTML(w, "HELLO", "layout", "public_navbar", "top")
+		generateHTML(w, nil, "layout", "public_navbar", "top")
 	} else {
 		http.Redirect(w, r, "/index/", 302)
 	}
@@ -22,7 +22,7 @@ func handleMain(w http.ResponseWriter, r *http.Request) {
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	sess, err := session(w, r)
 	if err != nil {
-		http.Redirect(w, r, "/", 302)
+		http.Redirect(w, r, "/top/", 302)
 	} else {
 		user, err := sess.GetUserBySession()
 		if err != nil {
