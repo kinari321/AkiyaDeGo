@@ -8,10 +8,10 @@ UserName: {{.Name}}
 <hr>
 
 {{ range .Posts }}
-<div>{{ .Title }}</div>
-<div>{{ .Type }}</div>
-<div>{{ .Prefecture }}</div>
-<div>{{ .Description }}</div>
+<div>タイトル：{{.Title }}</div>
+<div>種類： {{ .Type }}</div>
+<div>都道府県：{{ .Prefecture }}</div>
+<div>詳細： {{ .Description }}</div>
 <hr>
 {{end}}
 {{end}}
