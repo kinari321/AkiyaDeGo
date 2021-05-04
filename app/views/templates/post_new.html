@@ -9,6 +9,16 @@
   <div class="form-group">
     <p>
       タイトル：<input type="text" name="title" /><br>
+      種類：
+      <input type="radio" name="type" value="空き家" checked="checked" /> 空き家　
+      <input type="radio" name="type" value="空き地" /> 空き地 <br>
+      都道府県：
+      <select name="prefecture">
+        <option>北海道</option>
+        <option>東京</option>
+        <option>大阪</option>
+        <option>沖縄</option>
+      </select><br>
       <textarea name="description" rows="4" cols="40">詳細説明</textarea><br>
       <input type="submit" value="送信" />　
       <input type="reset" value="取り消し" />

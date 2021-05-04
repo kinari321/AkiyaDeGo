@@ -8,6 +8,8 @@ import (
 type Post struct {
 	ID          int
 	Title       string
+	Type        string
+	Prefecture  string
 	Description string
 	UserID      int
 	CreatedAt   time.Time
@@ -16,12 +18,15 @@ type Post struct {
 func (p *Post) CreatePost() (err error) {
 	cmd := `INSERT INTO posts (
 		title,
+		type,
+		prefecture,
 		description,
 		user_id,
-		created_at) VALUES (?, ?, ?, ?)`
-	// p.UserIDどうなる？
+		created_at) VALUES (?, ?, ?, ?, ?, ?)`
 	_, err = Db.Exec(cmd,
 		p.Title,
+		p.Type,
+		p.Prefecture,
 		p.Description,
 		p.UserID,
 		time.Now())
@@ -33,11 +38,13 @@ func (p *Post) CreatePost() (err error) {
 
 func GetPost(id int) (post Post, err error) {
 	post = Post{}
-	cmd := `SELECT id, title, description, user_id, created_at FROM posts
+	cmd := `SELECT id, title, type, prefecture, description, user_id, created_at FROM posts
 	WHERE id = ?`
 	err = Db.QueryRow(cmd, id).Scan(
 		&post.ID,
 		&post.Title,
+		&post.Type,
+		&post.Prefecture,
 		&post.Description,
 		&post.UserID,
 		&post.CreatedAt,
@@ -46,7 +53,7 @@ func GetPost(id int) (post Post, err error) {
 }
 
 func GetPosts() (posts []Post, err error) {
-	cmd := `SELECT id, title, description, user_id, created_at FROM posts`
+	cmd := `SELECT id, title, type, prefecture, description, user_id, created_at FROM posts`
 	rows, err := Db.Query(cmd)
 	if err != nil {
 		log.Fatalln(err)
@@ -56,6 +63,8 @@ func GetPosts() (posts []Post, err error) {
 		err = rows.Scan(
 			&post.ID,
 			&post.Title,
+			&post.Type,
+			&post.Prefecture,
 			&post.Description,
 			&post.UserID,
 			&post.CreatedAt,
@@ -70,7 +79,7 @@ func GetPosts() (posts []Post, err error) {
 }
 
 func (u *User) GetPostsByUser() (posts []Post, err error) {
-	cmd := `SELECT id, title, description, user_id, created_at FROM posts
+	cmd := `SELECT id, title, type, prefecture, description, user_id, created_at FROM posts
 	WHERE user_id = ?`
 	rows, err := Db.Query(cmd, u.ID)
 	if err != nil {
@@ -81,6 +90,8 @@ func (u *User) GetPostsByUser() (posts []Post, err error) {
 		err = rows.Scan(
 			&post.ID,
 			&post.Title,
+			&post.Type,
+			&post.Prefecture,
 			&post.Description,
 			&post.UserID,
 			&post.CreatedAt,
@@ -95,8 +106,8 @@ func (u *User) GetPostsByUser() (posts []Post, err error) {
 }
 
 func (p *Post) UpdatePost() (err error) {
-	cmd := `UPDATE posts SET title = ?, description = ? WHERE id = ?`
-	_, err = Db.Exec(cmd, p.Title, p.Description, p.ID)
+	cmd := `UPDATE posts SET title = ?, type = ?, prefecture = ?, description = ?, WHERE id = ?`
+	_, err = Db.Exec(cmd, p.Title, p.Type, p.Prefecture, p.Description, p.ID)
 	if err != nil {
 		log.Fatalln(err)
 	}

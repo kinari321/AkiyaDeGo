@@ -9,6 +9,8 @@ UserName: {{.Name}}
 
 {{ range .Posts }}
 <div>{{ .Title }}</div>
+<div>{{ .Type }}</div>
+<div>{{ .Prefecture }}</div>
 <div>{{ .Description }}</div>
 <hr>
 {{end}}
