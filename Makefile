@@ -25,6 +25,10 @@ nginx: ## nginxのセットアップ
 kill-app-process: ## ローカルのアプリプロセスを殺す
 	(kill $(shell lsof -i :8080 -t)) || echo ":8080で動いてるプロセスはありません"
 
+.PHONY: go-package-get
+go-package-get: ## パッケージをインストール
+	go get
+
 .PHONY: build-app
 build-app: ## アプリのビルド
 	go build ./main.go
@@ -36,6 +40,7 @@ run-app-with-background: ## アプリを起動
 .PHONY: deploy
 deploy: ## アプリをデプロイ
 	make kill-app-process
+	make go-package-getå
 	make build-app
 	make run-app-with-background
 	curl localhost
