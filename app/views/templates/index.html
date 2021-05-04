@@ -1,15 +1,19 @@
 {{define "content"}}
-<h1>空き家一覧</h1>
 UserName:{{.Name}}
+<h1>空き家一覧</h1>
 <a href='/top/'>Top</a><br>
 <a href='/post/'>空き家を登録する</a><br>
 <a href='/upload/'>画像をアップロードする</a><br>
 <!-- この部分は画像を挿入したい。
 <img src="image_akiya.jpeg" alt="空き家の写真" title="空き家を登録する">
 -->
+</br>
+<a href='/post/new/'>postNewの空き家を登録する</a><br>
 <hr>
+
 {{ range .Posts }}
-<div>{{ .Content }}</div>
-</hr>
+<div>{{ .Title }}</div>
+<div>{{ .Description }}</div>
+<hr>
 {{end}}
 {{end}}

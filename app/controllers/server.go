@@ -34,15 +34,16 @@ func StartMainServer() error {
 
 	http.HandleFunc("/top/", handleTop)
 	http.HandleFunc("/", handleMain)
-	http.HandleFunc("/post/", handlePost)
+	// http.HandleFunc("/post/", handlePost)
 
 	http.HandleFunc("/signup/", handleSignup)
 	http.HandleFunc("/login/", handleLogin)
-	http.HandleFunc("/authenticate/", handleAuthenticate)
-	http.HandleFunc("/index/", index)
-	// http.HandleFunc("/index/", handleIndex)
-	// http.HandleFunc("/mytop/", handleMytop)
+	http.HandleFunc("/authenticate", handleAuthenticate)
+	http.HandleFunc("/index/", handleIndex)
 	http.HandleFunc("/logout/", handleLogout)
+
+	http.HandleFunc("/post/new/", postNew)
+	http.HandleFunc("/post/save/", postSave)
 
 	http.HandleFunc("/upload/", handleUpload)
 	http.HandleFunc("/show/", handleShow)

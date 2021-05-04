@@ -154,6 +154,5 @@ func (sess *Session) GetUserBySession() (user User, err error) {
 		&user.Name,
 		&user.Email,
 		&user.CreatedAt)
-
 	return user, err
 }

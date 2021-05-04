@@ -58,7 +58,6 @@ func handleAuthenticate(w http.ResponseWriter, r *http.Request) {
 			HttpOnly: true,
 		}
 		http.SetCookie(w, &cookie)
-
 		http.Redirect(w, r, "/top/", 302)
 	} else {
 		http.Redirect(w, r, "/login/", 302)
