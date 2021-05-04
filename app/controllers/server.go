@@ -44,7 +44,7 @@ func StartMainServer() error {
 	http.HandleFunc("/post/new/", postNew)
 	http.HandleFunc("/post/save/", postSave)
 
-	http.HandleFunc("/upload/", handleUpload)
-	http.HandleFunc("/show/", handleShow)
+	http.HandleFunc("/imageUpload/", handleUpload)
+	http.HandleFunc("/imageShow/", handleShow)
 	return http.ListenAndServe(":"+config.Config.Port, nil)
 }
