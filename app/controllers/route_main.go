@@ -66,7 +66,51 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 		if err := p.CreatePost(); err != nil {
 			log.Println(err)
 		}
+		http.Redirect(w, r, "/index/", 302)
+	}
+}
 
+func postEdit(w http.ResponseWriter, r *http.Request, id int) {
+	sess, err := session(w, r)
+	if err != nil {
+		http.Redirect(w, r, "/login/", 302)
+	} else {
+		_, err := sess.GetUserBySession()
+		if err != nil {
+			log.Println(err)
+		}
+		p, err := models.GetPost(id)
+		if err != nil {
+			log.Println(err)
+		}
+		generateHTML(w, p, "layout", "private_navbar", "post_edit")
+	}
+}
+
+func postUpdate(w http.ResponseWriter, r *http.Request, id int) {
+	sess, err := session(w, r)
+	if err != nil {
+		http.Redirect(w, r, "/login/", 302)
+	} else {
+		err = r.ParseForm()
+		if err != nil {
+			log.Println(err)
+		}
+		user, err := sess.GetUserBySession()
+		if err != nil {
+			log.Println(err)
+		}
+
+		p := &models.Post{}
+		p.Title = r.PostFormValue("title")
+		p.Type = r.PostFormValue("type")
+		p.Prefecture = r.PostFormValue("prefecture")
+		p.Description = r.PostFormValue("description")
+		p.UserID = user.ID
+		post := &models.Post{ID: id, Title: p.Title, Type: p.Type, Prefecture: p.Prefecture, UserID: user.ID}
+		if err := post.UpdatePost(); err != nil {
+			log.Println(err)
+		}
 		http.Redirect(w, r, "/index/", 302)
 	}
 }

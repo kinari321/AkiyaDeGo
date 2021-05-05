@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"regexp"
+	"strconv"
 )
 
 func generateHTML(w http.ResponseWriter, data interface{}, filenames ...string) {
@@ -28,6 +30,26 @@ func session(w http.ResponseWriter, r *http.Request) (sess models.Session, err e
 	return sess, err
 }
 
+var validPath = regexp.MustCompile("^/post/(edit|update|delete)/([0-9]+)$")
+
+func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		q := validPath.FindStringSubmatch(r.URL.Path)
+		if q == nil {
+			http.NotFound(w, r)
+			return
+		}
+		// Atoi(q[2])は二番目のココの部分 → /(edit|update|delete)/
+		qi, err := strconv.Atoi(q[2])
+		if err != nil {
+			http.NotFound(w, r)
+			return
+		}
+
+		fn(w, r, qi)
+	}
+}
+
 func StartMainServer() error {
 	files := http.FileServer(http.Dir(config.Config.Static))
 	http.Handle("/static/", http.StripPrefix("/static/", files))
@@ -43,6 +65,8 @@ func StartMainServer() error {
 
 	http.HandleFunc("/post/new/", postNew)
 	http.HandleFunc("/post/save/", postSave)
+	http.HandleFunc("/post/edit/", parseURL(postEdit))
+	http.HandleFunc("/post/update/", parseURL(postUpdate))
 
 	http.HandleFunc("/imageUpload/", handleUpload)
 	http.HandleFunc("/imageShow/", handleShow)

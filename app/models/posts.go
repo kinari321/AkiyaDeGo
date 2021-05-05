@@ -37,9 +37,9 @@ func (p *Post) CreatePost() (err error) {
 }
 
 func GetPost(id int) (post Post, err error) {
-	post = Post{}
 	cmd := `SELECT id, title, type, prefecture, description, user_id, created_at FROM posts
 	WHERE id = ?`
+	post = Post{}
 	err = Db.QueryRow(cmd, id).Scan(
 		&post.ID,
 		&post.Title,

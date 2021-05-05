@@ -1,0 +1,18 @@
+{‌{define "content"}}
+{{.Title}}
+{{.Type}}
+{{.Prefecture}}
+<form role="form" action="/post/update/{‌{.ID}}" method="post">
+  <div class="lead">PostUpdate</div>
+  <div class="form-group">
+    <textarea class="form-control" name="description" id="description" rows="4" cols="40"
+      placeholder="詳細説明を更新">{{.Description}}</textarea><br>
+    <!-- <input type="submit" value="送信" />　
+      <input type="reset" value="取り消し" /> -->
+    </p>
+    <br />
+    <br />
+    <button class="btn btn-lg btn-primary pull-right" type="submit">更新</button>
+  </div>
+</form>
+{‌{end}}
