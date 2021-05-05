@@ -54,21 +54,21 @@ func StartMainServer() error {
 	files := http.FileServer(http.Dir(config.Config.Static))
 	http.Handle("/static/", http.StripPrefix("/static/", files))
 
-	http.HandleFunc("/top/", handleTop)
+	http.HandleFunc("/top", handleTop)
 	http.HandleFunc("/", handleMain)
 
-	http.HandleFunc("/signup/", handleSignup)
-	http.HandleFunc("/login/", handleLogin)
+	http.HandleFunc("/signup", handleSignup)
+	http.HandleFunc("/login", handleLogin)
 	http.HandleFunc("/authenticate", handleAuthenticate)
-	http.HandleFunc("/index/", handleIndex)
-	http.HandleFunc("/logout/", handleLogout)
+	http.HandleFunc("/index", handleIndex)
+	http.HandleFunc("/logout", handleLogout)
 
-	http.HandleFunc("/post/new/", postNew)
-	http.HandleFunc("/post/save/", postSave)
+	http.HandleFunc("/post/new", postNew)
+	http.HandleFunc("/post/save", postSave)
 	http.HandleFunc("/post/edit/", parseURL(postEdit))
 	http.HandleFunc("/post/update/", parseURL(postUpdate))
 
-	http.HandleFunc("/imageUpload/", handleUpload)
-	http.HandleFunc("/imageShow/", handleShow)
+	http.HandleFunc("/imageUpload", handleUpload)
+	http.HandleFunc("/imageShow", handleShow)
 	return http.ListenAndServe(":"+config.Config.Port, nil)
 }

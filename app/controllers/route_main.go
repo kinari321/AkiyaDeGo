@@ -11,7 +11,7 @@ func handleTop(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		generateHTML(w, nil, "layout", "public_navbar", "top")
 	} else {
-		http.Redirect(w, r, "/index/", 302)
+		http.Redirect(w, r, "/index", 302)
 	}
 }
 
@@ -37,7 +37,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 func postNew(w http.ResponseWriter, r *http.Request) {
 	_, err := session(w, r)
 	if err != nil {
-		http.Redirect(w, r, "/login/", 302)
+		http.Redirect(w, r, "/login", 302)
 	} else {
 		generateHTML(w, nil, "layout", "private_navbar", "post_new")
 	}
@@ -46,7 +46,7 @@ func postNew(w http.ResponseWriter, r *http.Request) {
 func postSave(w http.ResponseWriter, r *http.Request) {
 	sess, err := session(w, r)
 	if err != nil {
-		http.Redirect(w, r, "/login/", 302)
+		http.Redirect(w, r, "/login", 302)
 	} else {
 		err = r.ParseForm()
 		if err != nil {
@@ -66,14 +66,14 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 		if err := p.CreatePost(); err != nil {
 			log.Println(err)
 		}
-		http.Redirect(w, r, "/index/", 302)
+		http.Redirect(w, r, "/index", 302)
 	}
 }
 
 func postEdit(w http.ResponseWriter, r *http.Request, id int) {
 	sess, err := session(w, r)
 	if err != nil {
-		http.Redirect(w, r, "/login/", 302)
+		http.Redirect(w, r, "/login", 302)
 	} else {
 		_, err := sess.GetUserBySession()
 		if err != nil {
@@ -90,7 +90,7 @@ func postEdit(w http.ResponseWriter, r *http.Request, id int) {
 func postUpdate(w http.ResponseWriter, r *http.Request, id int) {
 	sess, err := session(w, r)
 	if err != nil {
-		http.Redirect(w, r, "/login/", 302)
+		http.Redirect(w, r, "/login", 302)
 	} else {
 		err = r.ParseForm()
 		if err != nil {
@@ -111,6 +111,6 @@ func postUpdate(w http.ResponseWriter, r *http.Request, id int) {
 		if err := post.UpdatePost(); err != nil {
 			log.Println(err)
 		}
-		http.Redirect(w, r, "/index/", 302)
+		http.Redirect(w, r, "/index", 302)
 	}
 }

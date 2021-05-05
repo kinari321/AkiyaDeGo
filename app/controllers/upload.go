@@ -41,7 +41,7 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 		defer f.Close()
 
 		io.Copy(f, file)
-		http.Redirect(w, r, "/imageShow/", 302)
+		http.Redirect(w, r, "/imageShow", 302)
 	}
 }
 
