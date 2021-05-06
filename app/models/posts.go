@@ -106,8 +106,9 @@ func (u *User) GetPostsByUser() (posts []Post, err error) {
 }
 
 func (p *Post) UpdatePost() (err error) {
-	cmd := `UPDATE posts SET title = ?, type = ?, prefecture = ?, description = ?, WHERE id = ?`
-	_, err = Db.Exec(cmd, p.Title, p.Type, p.Prefecture, p.Description, p.ID)
+	cmd := `UPDATE posts SET title = ?, type = ?, prefecture = ?,
+		description = ?, user_id = ? WHERE id = ?`
+	_, err = Db.Exec(cmd, p.Title, p.Type, p.Prefecture, p.Description, p.UserID, p.ID)
 	if err != nil {
 		log.Fatalln(err)
 	}

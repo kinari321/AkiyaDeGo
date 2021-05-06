@@ -30,8 +30,10 @@ func session(w http.ResponseWriter, r *http.Request) (sess models.Session, err e
 	return sess, err
 }
 
+// ココpostで合ってる？indexではない？
 var validPath = regexp.MustCompile("^/post/(edit|update|delete)/([0-9]+)$")
 
+// Handler関数を返す関数
 func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		q := validPath.FindStringSubmatch(r.URL.Path)

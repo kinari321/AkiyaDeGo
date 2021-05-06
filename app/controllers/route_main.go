@@ -83,6 +83,7 @@ func postEdit(w http.ResponseWriter, r *http.Request, id int) {
 		if err != nil {
 			log.Println(err)
 		}
+		// 取得したpost idを渡す
 		generateHTML(w, p, "layout", "private_navbar", "post_edit")
 	}
 }
@@ -100,14 +101,16 @@ func postUpdate(w http.ResponseWriter, r *http.Request, id int) {
 		if err != nil {
 			log.Println(err)
 		}
-
-		p := &models.Post{}
-		p.Title = r.PostFormValue("title")
-		p.Type = r.PostFormValue("type")
-		p.Prefecture = r.PostFormValue("prefecture")
-		p.Description = r.PostFormValue("description")
-		p.UserID = user.ID
-		post := &models.Post{ID: id, Title: p.Title, Type: p.Type, Prefecture: p.Prefecture, UserID: user.ID}
+		p, err := models.GetPost(id)
+		title := r.PostFormValue("title")
+		description := r.PostFormValue("description")
+		post := &models.Post{
+			ID:          id,
+			Title:       title,
+			Type:        p.Type,
+			Prefecture:  p.Prefecture,
+			Description: description,
+			UserID:      user.ID}
 		if err := post.UpdatePost(); err != nil {
 			log.Println(err)
 		}
