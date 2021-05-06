@@ -69,6 +69,7 @@ func StartMainServer() error {
 	http.HandleFunc("/post/save", postSave)
 	http.HandleFunc("/post/edit/", parseURL(postEdit))
 	http.HandleFunc("/post/update/", parseURL(postUpdate))
+	http.HandleFunc("/post/delete/", parseURL(postDelete))
 
 	http.HandleFunc("/imageUpload", handleUpload)
 	http.HandleFunc("/imageShow", handleShow)
