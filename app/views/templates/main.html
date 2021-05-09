@@ -4,4 +4,13 @@
 <hr>
 <a href='/imageUpload'>画像アップ用のリンク</a><br>
 <hr>
+{{ range . }}
+<div>タイトル：{{.Title }}</div>
+<div>種類： {{ .Type }}</div>
+<div>都道府県：{{ .Prefecture }}</div>
+<div>詳細： {{ .Description }}</div>
+[<a href='/post/edit/{{.ID}}'>Edit</a>]
+<p>[<a href='/post/delete/{{.ID}}'>Delete</a>]</p>
+<hr>
+{{end}}
 {{end}}

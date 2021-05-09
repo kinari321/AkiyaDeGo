@@ -16,7 +16,8 @@ func handleTop(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleMain(w http.ResponseWriter, r *http.Request) {
-	generateHTML(w, nil, "layout", "public_navbar", "main")
+	allPosts, _ := models.GetPosts()
+	generateHTML(w, allPosts, "layout", "public_navbar", "main")
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
