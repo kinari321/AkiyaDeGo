@@ -32,8 +32,7 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		defer file.Close()
-
-		f, err := os.Create("source/img/test.jpg")
+		f, err := os.Create("/usr/share/nginx/html/media/test.jpg")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -46,7 +45,7 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleShow(w http.ResponseWriter, r *http.Request) {
-	file, err := os.Open("source/img/test.jpg")
+	file, err := os.Open("/usr/share/nginx/html/media/test.jpg")
 	defer file.Close()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
