@@ -1,10 +1,13 @@
 {{define "content"}}
 <h1>画像</h1>
 <a href='/top'>空き家一覧</a><br>
-<a href='/post/new'>空き家を登録する</a><br>
+<a href='/post/new'>空き家を登録する</a><br><br />
 <!-- <a href='/'>空き家一覧</a><br> -->
-<p>received image:<br>
-  <img src="data:image/jpg;base64,{{ .Image }}" />
+
+{{ range .Images }}
+<p>空き家画像:<br />
+  <img src="data:image/jpg;base64,{{ . }}" />
 </p>
+{{ end }}
 <a href='/imageUpload'>戻る</a>
 {{end}}
