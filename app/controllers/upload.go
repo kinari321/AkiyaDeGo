@@ -14,6 +14,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 )
 
 func handleUpload(w http.ResponseWriter, r *http.Request) {
@@ -33,6 +34,11 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 		}
 		defer file.Close()
 		uploadedFileName := fileHeader.Filename
+		ext := filepath.Ext(uploadedFileName) //  アップロードされたファイル名の拡張子を取得
+		if ext != ".jpeg" && ext != ".jpg" {
+			log.Printf("ext Type:%v\n", ext)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 		// f, err := os.Create("/usr/share/nginx/html/media/" + uploadedFileName)	// EC2用
 		f, err := os.Create("/var/www/image/" + uploadedFileName) //ローカル用
 		if err != nil {
