@@ -70,7 +70,5 @@ func StartMainServer() error {
 	http.HandleFunc("/post/update/", parseURL(postUpdate))
 	http.HandleFunc("/post/delete/", parseURL(postDelete))
 
-	http.HandleFunc("/imageUpload", handleUpload)
-	http.HandleFunc("/imageShow", handleShow)
 	return http.ListenAndServe(":"+config.Config.Port, nil)
 }
