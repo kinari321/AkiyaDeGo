@@ -33,7 +33,7 @@ func (u *User) CreateUser() (err error) {
  		password,
  		created_at) VALUES (?, ?, ?, ?, ?)`
 	_, err = Db.Exec(cmd,
-		createUUID(),
+		CreateUUID(),
 		u.Name,
 		u.Email,
 		Encrypt(u.PassWord),
@@ -100,7 +100,7 @@ func (u *User) CreateSession() (session Session, err error) {
 		email,
 		user_id,
 		created_at) VALUES (?, ?, ?, ?)`
-	_, err = Db.Exec(cmd1, createUUID(), u.Email, u.ID, time.Now())
+	_, err = Db.Exec(cmd1, CreateUUID(), u.Email, u.ID, time.Now())
 	if err != nil {
 		log.Println(err)
 	}

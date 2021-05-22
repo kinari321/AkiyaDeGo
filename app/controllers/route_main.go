@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"AkiyaDeGo/app/models"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -71,6 +72,8 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 		defer file.Close()
 
 		uploadedFileName := fileHeader.Filename
+		// uploadedFileName = CreateUUID() // ーーーーーーーーーーCreateUUID()をimportできなかったーーーーーーーーーー
+		fmt.Println(uploadedFileName)
 		path := "/var/www/image/" + uploadedFileName
 		f, err := os.Create(path)
 		if err != nil {

@@ -67,7 +67,7 @@ func Encrypt(plaintext string) (cryptext string) {
 	return cryptext
 }
 
-func createUUID() (uuidobj uuid.UUID) {
+func CreateUUID() (uuidobj uuid.UUID) {
 	uuidobj, _ = uuid.NewUUID()
 	return uuidobj
 }
