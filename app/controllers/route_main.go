@@ -139,6 +139,7 @@ func postUpdate(w http.ResponseWriter, r *http.Request, id int) {
 		description := r.PostFormValue("description")
 		post := &models.Post{
 			ID:          id,
+			ImagePath:   p.ImagePath,
 			Title:       title,
 			Type:        p.Type,
 			Prefecture:  p.Prefecture,
