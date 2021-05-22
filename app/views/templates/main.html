@@ -5,6 +5,7 @@
 <a href='/imageUpload'>画像アップ用のリンク</a><br>
 <hr>
 {{ range . }}
+<div>画像：<img src="data:image/jpg;base64,{{.ImagePath }}" /></div>
 <div>タイトル：{{.Title }}</div>
 <div>種類： {{ .Type }}</div>
 <div>都道府県：{{ .Prefecture }}</div>

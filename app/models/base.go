@@ -41,6 +41,7 @@ func init() {
 
 	cmdP := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
 		id INT NOT NULL AUTO_INCREMENT,
+		imagepath TEXT NULL,
 		title TEXT NOT NULL,
 		type TEXT NOT NULL,
 		prefecture TEXT NOT NULL,

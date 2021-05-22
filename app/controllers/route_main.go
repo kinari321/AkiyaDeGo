@@ -2,8 +2,10 @@ package controllers
 
 import (
 	"AkiyaDeGo/app/models"
+	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 func handleTop(w http.ResponseWriter, r *http.Request) {
@@ -57,8 +59,29 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Println(err)
 		}
+		err = r.ParseMultipartForm(32 << 20)
+		if err != nil {
+			log.Println(err)
+		}
+
+		file, fileHeader, err := r.FormFile("image")
+		if err != nil {
+			log.Println(err)
+		}
+		defer file.Close()
+
+		uploadedFileName := fileHeader.Filename
+		path := "/var/www/image/" + uploadedFileName
+		f, err := os.Create(path)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		defer f.Close()
+		io.Copy(f, file)
 
 		p := &models.Post{}
+		p.ImagePath = path
 		p.Title = r.PostFormValue("title")
 		p.Type = r.PostFormValue("type")
 		p.Prefecture = r.PostFormValue("prefecture")

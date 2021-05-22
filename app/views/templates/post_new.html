@@ -5,9 +5,10 @@
 <hr>
 <a href='/imageUpload'>画像アップ用のリンク</a><br>
 <hr>
-<form role="form" action="/post/save" form method="post">
+<form role="form" action="/post/save" form method="post" enctype="multipart/form-data">
   <div class="form-group">
     <p>
+      画像： <input type="file" name="image" id="image" multiple="multiple"><br>
       タイトル：<input type="text" name="title" /><br>
       種類：
       <input type="radio" name="type" value="空き家" checked="checked" /> 空き家　
