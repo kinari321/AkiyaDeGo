@@ -59,41 +59,47 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 		user, err := sess.GetUserBySession()
 		if err != nil {
 			log.Println(err)
+			http.Redirect(w, r, "/post/new", 302)
 		}
 		err = r.ParseMultipartForm(32 << 20)
 		if err != nil {
 			log.Println(err)
-		}
+			http.Redirect(w, r, "/post/new", 302)
+		} else {
 
-		file, fileHeader, err := r.FormFile("image")
-		if err != nil {
-			log.Println(err)
-		}
-		defer file.Close()
+			file, fileHeader, err := r.FormFile("image")
+			if err != nil {
+				log.Println(err)
+				http.Redirect(w, r, "/post/new", 302)
+			} else {
+				defer file.Close()
 
-		uploadedFileName := fileHeader.Filename
-		// uploadedFileName = CreateUUID() // ーーーーーーーーーーCreateUUID()をimportできなかったーーーーーーーーーー
-		fmt.Println(uploadedFileName)
-		path := "/var/www/image/" + uploadedFileName
-		f, err := os.Create(path)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		defer f.Close()
-		io.Copy(f, file)
+				uploadedFileName := fileHeader.Filename
+				// uploadedFileName = CreateUUID() // ーーーーーーーーーーCreateUUID()をimportできなかったーーーーーーーーーー
+				fmt.Println(uploadedFileName)
+				path := "/var/www/image/" + uploadedFileName
+				f, err := os.Create(path)
+				if err != nil {
+					log.Println(err)
+					http.Redirect(w, r, "/post/new", 302)
+				}
+				defer f.Close()
+				io.Copy(f, file)
 
-		p := &models.Post{}
-		p.ImagePath = path
-		p.Title = r.PostFormValue("title")
-		p.Type = r.PostFormValue("type")
-		p.Prefecture = r.PostFormValue("prefecture")
-		p.Description = r.PostFormValue("description")
-		p.UserID = user.ID
-		if err := p.CreatePost(); err != nil {
-			log.Println(err)
+				p := &models.Post{}
+				p.ImagePath = path
+				p.Title = r.PostFormValue("title")
+				p.Type = r.PostFormValue("type")
+				p.Prefecture = r.PostFormValue("prefecture")
+				p.Description = r.PostFormValue("description")
+				p.UserID = user.ID
+				if err := p.CreatePost(); err != nil {
+					log.Println(err)
+					http.Redirect(w, r, "/post/new", 302)
+				}
+				http.Redirect(w, r, "/index", 302)
+			}
 		}
-		http.Redirect(w, r, "/index", 302)
 	}
 }
 
