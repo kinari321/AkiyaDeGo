@@ -3,6 +3,7 @@ package controllers
 import (
 	"AkiyaDeGo/app/models"
 	"fmt"
+	"html/template"
 	"io"
 	"log"
 	"net/http"
@@ -20,16 +21,12 @@ func handleTop(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleMain(w http.ResponseWriter, r *http.Request) {
-	// var data interface{}
-	// allPosts, _ := models.GetPosts()
-	// data = append(data, allPosts)
-	generateMainHTML(w, nil, "layout-main", "public_navbar", "main")
-	// var files []string
-	// files = append(files, "app/views/templates/layout-main.html")
-	// files = append(files, "app/views/templates/public_navbar.html")
-	// files = append(files, "app/views/templates/main.html")
-	// templates := template.Must(template.ParseFiles(files...))
-	// templates.ExecuteTemplate(w, "layout", nil)
+	var files []string
+	files = append(files, "app/views/templates/layout-main.html")
+	files = append(files, "app/views/templates/public_navbar.html")
+	files = append(files, "app/views/templates/main.html")
+	templates := template.Must(template.ParseFiles(files...))
+	templates.ExecuteTemplate(w, "layout-main", nil)
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
