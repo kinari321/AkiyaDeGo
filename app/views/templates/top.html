@@ -3,14 +3,19 @@
 <!-- <a href='/'>空き家を見に行く</a><br> -->
 <a href='/post/new'>空き家を登録する</a><br>
 <hr>
+<div class="container">
+  <div class="row">
+    {{ range . }}
 
-{{ range . }}
-<div>画像：<img src="data:image/jpg;base64,{{.ImagePath }}" /></div>
-<div>タイトル：{{.Title }}</div>
-<div>種類： {{ .Type }}</div>
-<div>都道府県：{{ .Prefecture }}</div>
-<div>詳細： {{ .Description }}</div>
-<hr>
-{{end}}
+    <div class="card col-12 col-md-6">
+      <div>画像：<img src="data:image/jpg;base64,{{.ImagePath }}" /></div>
+      <div>タイトル：{{.Title }}</div>
+      <div>種類： {{ .Type }}</div>
+      <div>都道府県：{{ .Prefecture }}</div>
+      <div>詳細： {{ .Description }}</div>
+    </div>
 
+    {{end}}
+  </div>
+</div>
 {{end}}
