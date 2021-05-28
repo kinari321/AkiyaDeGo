@@ -1,16 +1,15 @@
-/* .background {
-  background-color: #486d46;
-  background-image: url('../assets/background-img.jpeg');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-} */
-
 body {
   font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
 }
 
+.background-img {
+  background-image: url('/static/assets/background-img.jpeg');
+  text-align: center; /* 文字中央寄せ */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
 .card {
   background-color: pink;
 }
@@ -23,11 +22,4 @@ body {
   display: inline-block; /* インラインブロックにする */
   padding: 10px 20px; /* 余白指定 */
   background-color: rgba(121, 255, 10, 0.7); /* 背景色指定 */
-}
-
-.bg_test {
-  text-align: center; /* 文字中央寄せ */
-  padding: 150px; /* 余白指定 */
-  border: solid 2px; /* 枠線指定 */
-  background-image: url('/static/assets/background-img.jpeg');
 }
