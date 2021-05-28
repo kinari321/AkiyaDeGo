@@ -10,7 +10,9 @@
     <div class="card col-12 col-md-6">
       <div><img src=" data:image/jpg;base64,{{.ImagePath }}" class="img-fluid rounded" alt="Responsive image" />
       </div>
-      <div class="text-left">タイトル：{{.Title }}</div>
+      <div class="text-left">
+        <p class="h3">タイトル：{{.Title }}</p>
+      </div>
       <div class="text-left">種類： {{ .Type }}</div>
       <div class="text-left">都道府県：{{ .Prefecture }}</div>
       <div class="text-left">詳細： {{ .Description }}</div>
