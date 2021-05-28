@@ -1,0 +1,15 @@
+body {
+  background-image: url('/static/assets/background-img.jpeg');
+  text-align: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.bg_test-text {
+  border: solid 1px; /* 枠線指定 */
+  display: inline-block; /* インラインブロックにする */
+  padding: 10px 20px; /* 余白指定 */
+  background-color: rgba(121, 255, 10, 0.7); /* 背景色指定 */
+}

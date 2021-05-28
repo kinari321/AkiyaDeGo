@@ -2,24 +2,9 @@ body {
   font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
 }
 
-.background-img {
-  background-image: url('/static/assets/background-img.jpeg');
-  text-align: center; /* 文字中央寄せ */
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
 .card {
   background-color: pink;
 }
 .row {
   background-color: #aff;
-}
-
-.bg_test-text {
-  border: solid 1px; /* 枠線指定 */
-  display: inline-block; /* インラインブロックにする */
-  padding: 10px 20px; /* 余白指定 */
-  background-color: rgba(121, 255, 10, 0.7); /* 背景色指定 */
 }
