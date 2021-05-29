@@ -32,8 +32,8 @@ body {
 }
 .text-left {
   margin: 2% 10%;
-  border: 1.5px solid #00458b;
-  border-left-width: 6px;
+  /* border: 1.5px solid #00458b;
+  border-left-width: 6px; */
 }
 .properties td,
 .properties th {
@@ -47,4 +47,20 @@ body {
 
 .navbar-brand {
   font-family: 'Dela Gothic One', cursive;
+}
+tbody {
+  margin: 2% 10%;
+  border: 1.5px solid #00458b;
+  border-left-width: 6px;
+}
+
+.pad {
+  /* padding-top: 5px; */
+  margin-top: 10px;
+}
+.pad2 {
+  margin-top: 20px;
+}
+.pad3 {
+  margin-top: 30px;
 }
