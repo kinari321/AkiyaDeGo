@@ -19,9 +19,9 @@ body {
 }
 
 .discription {
-  color: rgba(29, 29, 29, 0.872);
+  color: rgb(255 255 255 / 87%);
   font-weight: 500;
-  background-color: rgba(252, 252, 252, 0.5);
+  background-color: rgb(97 28 1 / 48%);
   border-radius: 25px;
   margin-top: 10px;
 }
