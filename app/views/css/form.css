@@ -1,6 +1,7 @@
 body {
   font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
   background-color: rgba(210, 210, 210, 0.6);
+  margin-bottom: 5%;
 }
 .container {
   padding-top: 60px;
