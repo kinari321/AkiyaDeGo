@@ -10,12 +10,26 @@
     <div class="card col-12 col-md-6">
       <div><img src=" data:image/jpg;base64,{{.ImagePath }}" class="img-fluid rounded" alt="Responsive image" />
       </div>
-      <div class="text-left">
-        <p class="h3">タイトル：{{.Title }}</p>
-      </div>
-      <div class="text-left">種類： {{ .Type }}</div>
-      <div class="text-left">都道府県：{{ .Prefecture }}</div>
-      <div class="text-left">詳細： {{ .Description }}</div>
+      <table class="properties text-left">
+        <tbody>
+          <tr>
+            <th scope="row" class="h4"><a>タイトル</a></th>
+            <td class="h4">{{.Title }}</td>
+          </tr>
+          <tr>
+            <th scope="row">種類</th>
+            <td>{{ .Type }}</td>
+          </tr>
+          <tr>
+            <th scope="row"><a>都道府県</a></th>
+            <td>{{ .Prefecture }}</td>
+          </tr>
+          <tr>
+            <th scope="row"><a>詳細</a></th>
+            <td>{{ .Description }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     {{end}}
