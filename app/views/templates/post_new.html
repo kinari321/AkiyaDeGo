@@ -1,15 +1,15 @@
 {{define "content"}}
 <h1>投稿する</h1>
-<a href='/top'>空き家一覧</a><br>
+<a href='/top'>戻る</a><br>
 <!-- <a href='/'>空き家一覧</a><br> -->
 <hr>
 <form role="form" action="/post/save" form method="post" enctype="multipart/form-data">
   <div class="form-group">
     <p>
       画像： <input type="file" name="image" id="image" multiple="multiple"><br>
-      タイトル：<input type="text" name="title" /><br>
+      <input type="text" name="title" placeholder="タイトル" /><br>
       種類：
-      <input type="radio" name="type" value="空き家" checked="checked" /> 空き家　
+      <input type="radio" name="type" value="空き家" checked="checked" /> 空き家<br>
       <input type="radio" name="type" value="空き地" /> 空き地 <br>
       都道府県：
       <select name="prefecture">
