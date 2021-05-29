@@ -37,3 +37,7 @@ body {
   border: 0;
   border-top: 1.5px solid #00458b;
 }
+
+.signup-in {
+  padding: 2% 20%;
+}
