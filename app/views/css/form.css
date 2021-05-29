@@ -2,7 +2,9 @@ body {
   font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
   background-color: rgba(210, 210, 210, 0.6);
 }
-
+.container {
+  padding-top: 60px;
+}
 .card {
   background-color: rgba(222, 214, 215, 0);
 }
@@ -40,4 +42,8 @@ body {
 
 .signup-in {
   padding: 2% 20%;
+}
+
+.navbar-brand {
+  font-family: 'Dela Gothic One', cursive;
 }
