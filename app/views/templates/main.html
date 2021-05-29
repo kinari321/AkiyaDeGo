@@ -1,23 +1,8 @@
 {{define "content"}}
-<div class="background-img">
-  <a href='/top'>空き家一覧</a><br>
-  <a href='/post/new'>空き家を登録する</a><br>
-  <hr>
-  <div class="bg_test">
-    <!-- <img src='../assets/background-img.jpeg' /> -->
-    <div class="bg_test-text">
-      背景画像を設定します
-    </div>
+<div class="container text-center" style="height: 100vh;">
+  <div class="title">
+    <h1>空き家でGo</h1>
+    <a href="/top" type="button" class="btn btn-outline-light">空き家を見つける</a>
   </div>
 </div>
-<!-- {{ range . }}
-<div>画像：<img src="data:image/jpg;base64,{{.ImagePath }}" /></div>
-<div>タイトル：{{.Title }}</div>
-<div>種類： {{ .Type }}</div>
-<div>都道府県：{{ .Prefecture }}</div>
-<div>詳細： {{ .Description }}</div>
-[<a href='/post/edit/{{.ID}}'>Edit</a>]
-<p>[<a href='/post/delete/{{.ID}}'>Delete</a>]</p>
-<hr>
-{{end}} -->
 {{end}}
