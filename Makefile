@@ -6,7 +6,7 @@ hello: ## echo
 # nginxまわり
 ###############
 .PHONY: nginx-copy-conf
-nginx-copy-conf: ## nginx.confをコピーして上書き
+# nginx-copy-conf: ## nginx.confをコピーして上書き
 ## sudo cp ./nginx/nginx.conf /etc/nginx/nginx.conf
 
 .PHONY: nginx-restart
