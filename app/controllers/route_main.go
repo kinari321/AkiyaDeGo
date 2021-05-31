@@ -81,7 +81,6 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 				defer file.Close()
 
 				uploadedFileName := fileHeader.Filename
-				// uploadedFileName = CreateUUID() // ーーーーーーーーーーCreateUUID()をimportできなかったーーーーーーーーーー
 				fmt.Println(uploadedFileName)
 				path := "/var/www/image/" + uploadedFileName // ローカル用
 				// path := "/usr/share/nginx/html/media/" + uploadedFileName // EC2用
@@ -123,7 +122,6 @@ func postEdit(w http.ResponseWriter, r *http.Request, id int) {
 		if err != nil {
 			log.Println(err)
 		}
-		// 取得したpost idを渡す
 		generateHTML(w, p, "layout", "private_navbar", "post_edit")
 	}
 }
