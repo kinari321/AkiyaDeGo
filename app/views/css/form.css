@@ -33,8 +33,6 @@ body {
 }
 .text-left {
   margin: 2% 10%;
-  /* border: 1.5px solid #00458b;
-  border-left-width: 6px; */
 }
 .properties td,
 .properties th {
@@ -56,7 +54,6 @@ tbody {
 }
 
 .pad {
-  /* padding-top: 5px; */
   margin-top: 10px;
 }
 .pad2 {
