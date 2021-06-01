@@ -40,6 +40,10 @@ body {
   border-top: 1.5px solid #00458b;
 }
 
+.properties th {
+  min-width: 110px;
+}
+
 .signup-in {
   padding: 2% 20%;
 }
