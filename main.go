@@ -5,7 +5,6 @@ import (
 	"AkiyaDeGo/app/models"
 	"AkiyaDeGo/config"
 	"fmt"
-	// "log"
 )
 
 func main() {
