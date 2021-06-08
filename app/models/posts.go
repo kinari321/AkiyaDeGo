@@ -3,7 +3,6 @@ package models
 import (
 	"bytes"
 	"encoding/base64"
-	// "fmt"
 	"github.com/nfnt/resize"
 	"image"
 	"image/jpeg"
