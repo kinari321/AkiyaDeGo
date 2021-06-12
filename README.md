@@ -1,4 +1,4 @@
-# AkiyaDeGo
+# 空き家で Go
 
 ## nginx
 
