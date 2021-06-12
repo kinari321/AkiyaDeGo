@@ -1,13 +1,11 @@
-# 空き家で Go
+# [AkiyaDeGo] (http://akiyadego.com/)
 
-## nginx
+## サイト概要
 
-```
-$ make nginx
-```
+[空き家で Go] (http://akiyadego.com/)<br>
 
-## deploy
+### テーマを選んだ理由
 
-```
-$ make deploy
-```
+​
+
+### ターゲットユーザ
