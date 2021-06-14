@@ -34,13 +34,13 @@
 
 ## 使用技術
 #### バックエンド
-Go 1.16.2
+- Go 1.16.2
 #### フロントエンド
-Bootstrap 4.5
-HTML/CSS
+- Bootstrap 4.5
+- HTML/CSS
 #### データベース
-MySQL 5.7.34
+- MySQL 5.7.34
 #### ミドルウェア
-Nginx 1.19.10
+- Nginx 1.19.10
 ### 本番環境
-AWS (VPC,EC2,RDS,Route53,IAM)
+- AWS (VPC,EC2,RDS,Route53,IAM)
