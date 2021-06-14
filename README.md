@@ -51,4 +51,4 @@
 1. 投稿機能（画像投稿）
 
 ## インフラ構成図
-![インフラ構成図](https://user-images.githubusercontent.com/43948442/121860950-5439ce00-cd34-11eb-8220-64154621be79.jpeg)
+![インフラ構成図](https://user-images.githubusercontent.com/43948442/121861404-bf83a000-cd34-11eb-9399-e268fbf40554.jpeg)
