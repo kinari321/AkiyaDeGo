@@ -1,9 +1,10 @@
 {{define "content"}}
 <h1>投稿する</h1>
-<a href='/top/'>Top</a>
-<a href='/'>空き家一覧</a>
+<a href='/top/'>Top</a><br>
+<a href='/'>空き家一覧</a><br>
+<a href='/upload/'>画像をアップロードする</a><br>
 <form method="post" action="CGIのURI">
-    <p>
+  <p>
     タイトル：<input type="text" name="タイトル" /><br>
     種類：
     <input type="radio" name="種類" value="空き家" checked="checked" /> 空き家　
@@ -18,6 +19,6 @@
     <textarea name="freeans" rows="4" cols="40">自由に意見を記述してください</textarea><br>
     <input type="submit" value="送信" />　
     <input type="reset" value="取り消し" />
-    </p>
-    </form>
+  </p>
+</form>
 {{end}}

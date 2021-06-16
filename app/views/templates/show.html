@@ -1,0 +1,10 @@
+{{define "content"}}
+<h1>画像</h1>
+<a href='/top/'>Top</a><br>
+<a href='/post/'>空き家を登録する</a><br>
+<a href='/'>空き家一覧</a><br>
+<p>received image:<br>
+  <img src="data:image/jpg;base64,{{ .Image }}" />
+</p>
+<a href='/upload/'>戻る</a>
+{{end}}
