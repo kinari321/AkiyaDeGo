@@ -1,5 +1,7 @@
 package controllers
 
+// show.htmlとpost.htmlで画像をアップロードするためのファイル
+
 import (
 	"bytes"
 	"encoding/base64"
@@ -31,8 +33,12 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 		}
 		defer file.Close()
 
+<<<<<<< HEAD
 		uploadedFileName := fileHeader.Filename
 		f, err := os.Create("source/img/" + uploadedFileName)
+=======
+		f, err := os.Create("source/img/test.jpg")
+>>>>>>> feature/mysql
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -45,7 +51,11 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleShow(w http.ResponseWriter, r *http.Request) {
+<<<<<<< HEAD
 	file, err := os.Open("source/img/")
+=======
+	file, err := os.Open("source/img/test.jpg")
+>>>>>>> feature/mysql
 	defer file.Close()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
