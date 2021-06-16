@@ -1,12 +1,14 @@
 {{define "content"}}
-<h1>画像をアップロードする</h1>
+<h1>画像アップロード</h1>
 <a href='/top'>空き家一覧</a><br>
-<a href='/post/new'>空き家を登録する</a><br>
+<a href='/post/new'>空き家を登録する</a><br><br>
 <!-- <a href='/'>空き家一覧</a><br> -->
 <p>
 <form action="/imageUpload" enctype="multipart/form-data" method="post">
   <input type="file" name="upload" id="upload" multiple="multiple">
   <input type="submit" value="アップロード" />
 </form>
+<a href='/imageShow'>画像一覧</a><br>
 </p>
+
 {{end}}
