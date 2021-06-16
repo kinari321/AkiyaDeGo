@@ -1,6 +1,5 @@
-# [AkiyaDeGo](http://akiyadego.com)
 
-![空き家でGo (2)](https://user-images.githubusercontent.com/43948442/122051689-d81cb480-ce1f-11eb-958d-e9a92fa58cd7.gif)
+![空き家でGo-GIF](https://user-images.githubusercontent.com/43948442/122051689-d81cb480-ce1f-11eb-958d-e9a92fa58cd7.gif)
 ## サイト概要
 
 ### [空き家でGo](http://akiyadego.com)<br>
