@@ -1,0 +1,28 @@
+{{define "content"}}
+<h1>投稿する</h1>
+<a href='/top'>空き家一覧</a><br>
+<!-- <a href='/'>空き家一覧</a><br> -->
+<hr>
+<a href='/imageUpload'>画像アップ用のリンク</a><br>
+<hr>
+<form role="form" action="/post/save" form method="post">
+  <div class="form-group">
+    <p>
+      タイトル：<input type="text" name="title" /><br>
+      種類：
+      <input type="radio" name="type" value="空き家" checked="checked" /> 空き家　
+      <input type="radio" name="type" value="空き地" /> 空き地 <br>
+      都道府県：
+      <select name="prefecture">
+        <option>北海道</option>
+        <option>東京</option>
+        <option>大阪</option>
+        <option>沖縄</option>
+      </select><br>
+      <textarea name="description" rows="4" cols="40" placeholder="詳細説明"></textarea><br>
+      <input type="submit" value="送信" />　
+      <input type="reset" value="取り消し" />
+    </p>
+  </div>
+</form>
+{{end}}

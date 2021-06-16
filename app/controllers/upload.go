@@ -18,7 +18,7 @@ import (
 
 func handleUpload(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		generateHTML(w, nil, "layout", "public_navbar", "upload")
+		generateHTML(w, nil, "layout", "public_navbar", "imageUpload")
 	} else if r.Method == "POST" {
 		err := r.ParseMultipartForm(32 << 20) // maxMemory
 		if err != nil {
@@ -46,7 +46,7 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 		defer f.Close()
 
 		io.Copy(f, file)
-		http.Redirect(w, r, "/show/", 302)
+		http.Redirect(w, r, "/imageShow", 302)
 	}
 }
 
@@ -69,7 +69,7 @@ func handleShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	generateHTMLWithImage(w, nil, &m, "layout", "public_navbar", "show")
+	generateHTMLWithImage(w, nil, &m, "layout", "public_navbar", "imageShow")
 }
 
 func generateHTMLWithImage(w http.ResponseWriter, data interface{}, m *image.Image, filenames ...string) {

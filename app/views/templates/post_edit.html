@@ -1,0 +1,19 @@
+{{define "content"}}
+<h1>投稿を修正する</h1>
+<a href='/top'>空き家一覧</a><br>
+<hr>
+<a href='/imageUpload'>画像アップ用のリンク</a><br>
+<hr>
+
+<form role="form" action="/post/update/{{.ID}}" form method="post">
+  <div class="form-group">
+    <p>
+      タイトル：<textarea class="form-control" name="title" rows="1" cols="20">{{.Title}}</textarea><br>
+      種類：{{.Type}}<br>
+      都道府県：{{.Prefecture}}<br>
+      <textarea class="form-control" name="description" rows="4" cols="40">{{.Description}}</textarea><br>
+      <button class="btn btn-lg btn-primary pull-right" type="submit">更新</button>
+    </p>
+  </div>
+</form>
+{{end}}
