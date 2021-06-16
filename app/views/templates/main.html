@@ -1,16 +1,13 @@
 {{define "content"}}
-<a href='/top'>空き家一覧</a><br>
-<a href='/post/new'>空き家を登録する</a><br>
-<hr>
-<a href='/imageUpload'>画像アップ用のリンク</a><br>
-<hr>
-{{ range . }}
-<div>タイトル：{{.Title }}</div>
-<div>種類： {{ .Type }}</div>
-<div>都道府県：{{ .Prefecture }}</div>
-<div>詳細： {{ .Description }}</div>
-[<a href='/post/edit/{{.ID}}'>Edit</a>]
-<p>[<a href='/post/delete/{{.ID}}'>Delete</a>]</p>
-<hr>
-{{end}}
+<div class="container text-center" style="height: 100vh;">
+  <div class="title">
+    <h1 class="display-4">空き家でGo</h1>
+    <p class="discription">
+      リモートワーカーの皆さん、空き家をもっと有効活用しませんか？<br>
+      「空き家でGO」なら実際の空き家の写真を見ながら、自分だけの活用方法を提案することができます。<br>
+      是非、あなただけのオリジナルの提案を投稿してください。
+    </p>
+    <a href="/top" type="button" class="btn btn-outline-light">空き家を見つける</a>
+  </div>
+</div>
 {{end}}

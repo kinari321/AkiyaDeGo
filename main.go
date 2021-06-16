@@ -9,6 +9,6 @@ import (
 
 func main() {
 	fmt.Println(config.Config.Port)
-	controllers.StartMainServer()
 	fmt.Println(models.Db)
+	controllers.StartMainServer()
 }

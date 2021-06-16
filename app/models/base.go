@@ -41,6 +41,7 @@ func init() {
 
 	cmdP := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
 		id INT NOT NULL AUTO_INCREMENT,
+		imagepath TEXT NULL,
 		title TEXT NOT NULL,
 		type TEXT NOT NULL,
 		prefecture TEXT NOT NULL,
@@ -66,7 +67,7 @@ func Encrypt(plaintext string) (cryptext string) {
 	return cryptext
 }
 
-func createUUID() (uuidobj uuid.UUID) {
+func CreateUUID() (uuidobj uuid.UUID) {
 	uuidobj, _ = uuid.NewUUID()
 	return uuidobj
 }

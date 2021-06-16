@@ -2,28 +2,37 @@ package controllers
 
 import (
 	"AkiyaDeGo/app/models"
+	"fmt"
+	"html/template"
+	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 func handleTop(w http.ResponseWriter, r *http.Request) {
 	_, err := session(w, r)
 	if err != nil {
-		generateHTML(w, nil, "layout", "public_navbar", "top")
+		posts, _ := models.GetPosts()
+		generateHTML(w, posts, "layout", "public_navbar", "top")
 	} else {
 		http.Redirect(w, r, "/index", 302)
 	}
 }
 
 func handleMain(w http.ResponseWriter, r *http.Request) {
-	allPosts, _ := models.GetPosts()
-	generateHTML(w, allPosts, "layout", "public_navbar", "main")
+	var files []string
+	files = append(files, "app/views/templates/layout-main.html")
+	files = append(files, "app/views/templates/public_navbar.html")
+	files = append(files, "app/views/templates/main.html")
+	templates := template.Must(template.ParseFiles(files...))
+	templates.ExecuteTemplate(w, "layout-main", nil)
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	sess, err := session(w, r)
 	if err != nil {
-		http.Redirect(w, r, "/top/", 302)
+		http.Redirect(w, r, "/top", 302)
 	} else {
 		user, err := sess.GetUserBySession()
 		if err != nil {
@@ -56,18 +65,47 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 		user, err := sess.GetUserBySession()
 		if err != nil {
 			log.Println(err)
+			http.Redirect(w, r, "/post/new", 302)
 		}
-
-		p := &models.Post{}
-		p.Title = r.PostFormValue("title")
-		p.Type = r.PostFormValue("type")
-		p.Prefecture = r.PostFormValue("prefecture")
-		p.Description = r.PostFormValue("description")
-		p.UserID = user.ID
-		if err := p.CreatePost(); err != nil {
+		err = r.ParseMultipartForm(32 << 20)
+		if err != nil {
 			log.Println(err)
+			http.Redirect(w, r, "/post/new", 302)
+		} else {
+
+			file, fileHeader, err := r.FormFile("image")
+			if err != nil {
+				log.Println(err)
+				http.Redirect(w, r, "/post/new", 302)
+			} else {
+				defer file.Close()
+
+				uploadedFileName := fileHeader.Filename
+				fmt.Println(uploadedFileName)
+				path := "/var/www/image/" + uploadedFileName // ローカル用
+				// path := "/usr/share/nginx/html/media/" + uploadedFileName // EC2用
+				f, err := os.Create(path)
+				if err != nil {
+					log.Println(err)
+					http.Redirect(w, r, "/post/new", 302)
+				}
+				defer f.Close()
+				io.Copy(f, file)
+
+				p := &models.Post{}
+				p.ImagePath = path
+				p.Title = r.PostFormValue("title")
+				p.Type = r.PostFormValue("type")
+				p.Prefecture = r.PostFormValue("prefecture")
+				p.Description = r.PostFormValue("description")
+				p.UserID = user.ID
+				if err := p.CreatePost(); err != nil {
+					log.Println(err)
+					http.Redirect(w, r, "/post/new", 302)
+				}
+				http.Redirect(w, r, "/index", 302)
+			}
 		}
-		http.Redirect(w, r, "/index", 302)
 	}
 }
 
@@ -84,7 +122,6 @@ func postEdit(w http.ResponseWriter, r *http.Request, id int) {
 		if err != nil {
 			log.Println(err)
 		}
-		// 取得したpost idを渡す
 		generateHTML(w, p, "layout", "private_navbar", "post_edit")
 	}
 }
@@ -107,6 +144,7 @@ func postUpdate(w http.ResponseWriter, r *http.Request, id int) {
 		description := r.PostFormValue("description")
 		post := &models.Post{
 			ID:          id,
+			ImagePath:   p.ImagePath,
 			Title:       title,
 			Type:        p.Type,
 			Prefecture:  p.Prefecture,

@@ -30,7 +30,6 @@ func session(w http.ResponseWriter, r *http.Request) (sess models.Session, err e
 	return sess, err
 }
 
-// ココpostで合ってる？indexではない？
 var validPath = regexp.MustCompile("^/post/(edit|update|delete)/([0-9]+)$")
 
 // Handler関数を返す関数
@@ -71,7 +70,5 @@ func StartMainServer() error {
 	http.HandleFunc("/post/update/", parseURL(postUpdate))
 	http.HandleFunc("/post/delete/", parseURL(postDelete))
 
-	http.HandleFunc("/imageUpload", handleUpload)
-	http.HandleFunc("/imageShow", handleShow)
 	return http.ListenAndServe(":"+config.Config.Port, nil)
 }
