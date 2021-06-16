@@ -49,4 +49,4 @@
   - ログイン後、投稿した空き家情報を削除することができる
 
 ## インフラ構成図
-![インフラ構成図](https://user-images.githubusercontent.com/43948442/121908339-e0b1b400-cd67-11eb-9ba9-5ed491d6b2a6.jpeg)
+![インフラ構成図](https://user-images.githubusercontent.com/43948442/122160155-6473b980-ceaa-11eb-804c-86bc524b98bf.jpeg)
