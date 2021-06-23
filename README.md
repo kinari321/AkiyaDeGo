@@ -43,6 +43,9 @@
 - Nginx 1.19
 #### その他
 - AWS (VPC,EC2,RDS,Route53,IAM)
+- Git/Github
+- Makefile
+
 
 ## 機能一覧
 - ユーザー登録
