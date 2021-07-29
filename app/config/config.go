@@ -24,7 +24,7 @@ func init() {
 }
 
 func LoadConfig() {
-	cfg, err := ini.Load("config.ini")
+	cfg, err := ini.Load("/Users/K_Shirakawa/go/1.16.2/src/AkiyaDeGo/app/config/config.ini")
 	if err != nil {
 		log.Fatalln(err)
 	}
