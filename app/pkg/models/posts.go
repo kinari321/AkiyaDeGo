@@ -60,20 +60,6 @@ func GetPost(id int) (post Post, err error) {
 		&post.UserID,
 		&post.CreatedAt,
 	)
-	// {
-	// 	file, _ := os.Open(post.ImagePath)
-	// 	defer file.Close()
-	// 	decodeImage, _, _ := image.Decode(file)
-	// 	m := resize.Resize(400, 0, decodeImage, resize.Lanczos3)
-	// 	file, _ = os.Open(post.ImagePath)
-	// 	defer file.Close()
-	// 	buffer := new(bytes.Buffer)
-	// 	if err := jpeg.Encode(buffer, m, nil); err != nil {
-	// 		log.Fatalln("Unable to encode image.")
-	// 	}
-	// 	str := base64.StdEncoding.EncodeToString(buffer.Bytes())
-	// 	post.ImagePath = str
-	// }
 	return post, err
 }
 
