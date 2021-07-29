@@ -1,7 +1,7 @@
 package config
 
 import (
-	"AkiyaDeGo/utils"
+	"github.com/kinari321/AkiyaDeGo/app/utils"
 	"log"
 
 	"gopkg.in/go-ini/ini.v1"
@@ -16,6 +16,7 @@ type ConfigList struct {
 }
 
 var Config ConfigList
+var cfg *ini.File
 
 func init() {
 	LoadConfig()

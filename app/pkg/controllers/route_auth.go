@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"AkiyaDeGo/app/models"
+	"github.com/kinari321/AkiyaDeGo/app/pkg/models"
 	"log"
 	"net/http"
 )

@@ -1,4 +1,4 @@
-module AkiyaDeGo
+module github.com/kinari321/AkiyaDeGo
 
 go 1.16
 
