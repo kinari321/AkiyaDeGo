@@ -5,15 +5,17 @@ services:
     build: ./app/
     container_name: go_container
     ports:
-      - 8080:8080
+      - 18080:8080
     tty: true
-    volumes:
-      - .:/go/src/work
+    # volumes:
+    #   - .:/go/src/work
+    # environment:
+    #   - "GOPATH=/go/src/work"
     depends_on:
       - db
 
   db:
-    image: mysql:5.7.34
+    image: mysql:5.7
     container_name: mysql_container
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -21,13 +23,14 @@ services:
       MYSQL_USER: akiya
       MYSQL_PASSWORD: password
       TZ: Asia/Tokyo
-    # build: ./mysql/
+    build: ./mysql/
+    # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
        - ./mysql/db:/docker-entrypoint-initdb.d
-    #    - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      #  - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
     #    - ./mysql/data:/var/lib/mysql
     ports:
-      - 3306:3306
+      - 13306:3306
 
   # proxy:
   #   container_name: nginx_container
