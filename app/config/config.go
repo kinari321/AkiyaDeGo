@@ -24,7 +24,8 @@ func init() {
 }
 
 func LoadConfig() {
-	cfg, err := ini.Load("/Users/K_Shirakawa/go/1.16.2/src/AkiyaDeGo/app/config/config.ini")
+	cfg, err := ini.Load("/Users/K_Shirakawa/go/1.16.2/src/AkiyaDeGo/app/config/config.ini") // ローカル
+	// cfg, err := ini.Load("/go/src/work/AkiyaDeGo/app/config/config.ini") // Docker?
 	if err != nil {
 		log.Fatalln(err)
 	}
