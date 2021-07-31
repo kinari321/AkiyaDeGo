@@ -21,7 +21,8 @@ const (
 )
 
 func init() {
-	Db, err = sql.Open("mysql", "akiya:password@tcp(127.0.0.1:3306)/akiyadego?parseTime=true")
+	//	Db, err = sql.Open("mysql", "akiya:password@tcp(127.0.0.1:3306)/akiyadego?parseTime=true") // ローカル
+	Db, err = sql.Open("mysql", "akiya:password@tcp(mysql_container:3306)/akiyadego?parseTime=true") // Docker
 	if err != nil {
 		log.Fatalln(err)
 	}
