@@ -22,9 +22,9 @@ func handleTop(w http.ResponseWriter, r *http.Request) {
 
 func handleMain(w http.ResponseWriter, r *http.Request) {
 	var files []string
-	files = append(files, "app/pkg/views/templates/layout-main.html")
-	files = append(files, "app/pkg/views/templates/public_navbar.html")
-	files = append(files, "app/pkg/views/templates/main.html")
+	files = append(files, "pkg/views/templates/layout-main.html")
+	files = append(files, "pkg/views/templates/public_navbar.html")
+	files = append(files, "pkg/views/templates/main.html")
 	templates := template.Must(template.ParseFiles(files...))
 	templates.ExecuteTemplate(w, "layout-main", nil)
 }
