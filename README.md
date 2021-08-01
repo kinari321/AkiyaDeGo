@@ -65,3 +65,6 @@
 - 画像複数枚投稿できるように追加
 - 投稿の詳細ページの作成
 - 都道府県地図上での空き家数の確認# goSuperEasyApi
+
+## 作成者情報
+白川 生成（Email: kinari.shi21@gmail.com ）
