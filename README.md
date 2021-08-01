@@ -45,7 +45,7 @@
 - AWS (VPC,EC2,RDS,Route53,IAM)
 - Git/Github
 - Makefile
-
+- Docker
 
 ## 機能一覧
 - ユーザー登録
@@ -55,16 +55,15 @@
   - ログイン後、投稿した空き家情報を削除することができる
 
 ## インフラ構成図
-![インフラ構成図](https://user-images.githubusercontent.com/43948442/122160155-6473b980-ceaa-11eb-804c-86bc524b98bf.jpeg)
+![インフラ構成図](https://user-images.githubusercontent.com/43948442/127776879-63ff3eb1-aa32-41d2-ab0c-79117b4d8d55.jpeg)
 
 ## 今後の改良計画
 - ユーザーページの作成
 - いいね機能
 - 活用方法提案のためのコメント機能
-- Dockerの導入
 - 画像複数枚投稿できるように追加
 - 投稿の詳細ページの作成
-- 都道府県地図上での空き家数の確認# goSuperEasyApi
+- 都道府県地図上での空き家数の確認
 
 ## 作成者情報
 白川 生成（Email: kinari.shi21@gmail.com ）
