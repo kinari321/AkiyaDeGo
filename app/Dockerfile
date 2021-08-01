@@ -11,7 +11,7 @@ ENV GOPATH=
 COPY go.mod go.sum ./
 RUN go mod download
 
-COPY . .
+# COPY . .
 
 
 ## Multi stage buildを行う場合
