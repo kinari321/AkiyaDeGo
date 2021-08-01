@@ -7,7 +7,6 @@ services:
     ports:
       - 18080:8080
     tty: true
-    # sourceはローカルの/app/ディレクトリをコンテナの/go/src/work/にバインドする
     volumes:
       - type: bind
         source: ./app/
