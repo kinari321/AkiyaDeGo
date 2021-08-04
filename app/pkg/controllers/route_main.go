@@ -82,8 +82,8 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 
 				uploadedFileName := fileHeader.Filename
 				fmt.Println(uploadedFileName)
-				path := "/var/www/image/" + uploadedFileName // ローカル用
-				// path := "/usr/share/nginx/html/media/" + uploadedFileName // EC2用
+				// path := "/var/www/image/" + uploadedFileName // ローカル用
+				path := "/usr/share/nginx/html/media/" + uploadedFileName // EC2用
 				f, err := os.Create(path)
 				if err != nil {
 					log.Println(err)
