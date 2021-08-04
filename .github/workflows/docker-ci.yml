@@ -1,0 +1,15 @@
+name: docker-ci
+
+on:
+  push:
+    - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test with docker-compose stack
+        run: |
+          docker-compose up -d --remove-orphans
+          docker exec go_container test -cover -v ./...
