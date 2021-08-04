@@ -2,7 +2,8 @@ name: docker-ci
 
 on:
   push:
-    - develop
+    branches:
+      - develop
 
 jobs:
   build:
