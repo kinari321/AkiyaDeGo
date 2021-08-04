@@ -37,15 +37,18 @@
 #### フロントエンド
 - Bootstrap 4.5
 - HTML/CSS
-#### データベース
-- MySQL 5.7
+#### インフラ
+- AWS (VPC,EC2,RDS,Route53,IAM)
+#### CI/CD
+- Github Actions
 #### ミドルウェア
 - Nginx 1.19
+#### データベース
+- MySQL 5.7
 #### その他
-- AWS (VPC,EC2,RDS,Route53,IAM)
+- Docker（docker-compose）
 - Git/Github
 - Makefile
-- Docker
 
 ## 機能一覧
 - ユーザー登録
@@ -55,16 +58,15 @@
   - ログイン後、投稿した空き家情報を削除することができる
 
 ## インフラ構成図
-![インフラ構成図](https://user-images.githubusercontent.com/43948442/127776879-63ff3eb1-aa32-41d2-ab0c-79117b4d8d55.jpeg)
+![インフラ構成図8_4](https://user-images.githubusercontent.com/43948442/128181323-8396ba0b-83b8-4226-af65-7d809fd0c37e.jpeg)
 
 ## 今後の改良計画
-- CI/CD（Github Actions）の導入
 - ユーザーページの作成
-- いいね機能
 - 活用方法提案のためのコメント機能
-- 画像複数枚投稿できるように追加d
+- 画像を複数枚投稿できるようにする
 - 投稿の詳細ページの作成
-- 都道府県地図上での空き家数の確認
+- Google Maps APIの導入
+- Vue.jsによるSPA化
 
 ## 作成者情報
 白川 生成（Email: kinari.shi21@gmail.com ）
