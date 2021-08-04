@@ -32,3 +32,5 @@ jobs:
 
     - name: Test code
       run: go test -v ./...
+      working-directory: ./app
+
