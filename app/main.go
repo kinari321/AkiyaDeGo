@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/kinari321/AkiyaDeGo/app/config"
 	"github.com/kinari321/AkiyaDeGo/app/pkg/controllers"
-	"github.com/kinari321/AkiyaDeGo/app/pkg/models"
+	_ "github.com/kinari321/AkiyaDeGo/app/pkg/models"
 )
 
 func main() {
