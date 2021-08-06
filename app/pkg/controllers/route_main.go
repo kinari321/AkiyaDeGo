@@ -95,7 +95,7 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 				p := &models.Post{}
 				p.ImagePath = path
 				p.Title = r.PostFormValue("title")
-				p.Type = r.PostFormValue("type")
+				p.Category = r.PostFormValue("category")
 				p.Prefecture = r.PostFormValue("prefecture")
 				p.Description = r.PostFormValue("description")
 				p.UserID = user.ID
@@ -146,7 +146,7 @@ func postUpdate(w http.ResponseWriter, r *http.Request, id int) {
 			ID:          id,
 			ImagePath:   p.ImagePath,
 			Title:       title,
-			Type:        p.Type,
+			Category:    p.Category,
 			Prefecture:  p.Prefecture,
 			Description: description,
 			UserID:      user.ID}
