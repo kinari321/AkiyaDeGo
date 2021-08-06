@@ -12,6 +12,16 @@ import (
 	"time"
 )
 
+// type CRUDPost interface {
+// 	CreatePost() (err error)
+// 	GetPostsByUser() (posts []Post, err error)
+// 	UpdatePost() (err error)
+// 	DeletePost() (err error)
+// }
+
+// type MyPost struct {
+// }
+
 type Post struct {
 	ID          int
 	ImagePath   string
@@ -47,7 +57,7 @@ func (p *Post) CreatePost() (err error) {
 }
 
 func GetPost(id int) (post Post, err error) {
-	cmd := `SELECT id, imagepath, title, type, prefecture, description, user_id, created_at FROM posts
+	cmd := `SELECT * FROM posts
 	WHERE id = ?`
 	post = Post{}
 	err = Db.QueryRow(cmd, id).Scan(
