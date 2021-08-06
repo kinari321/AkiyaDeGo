@@ -1,14 +1,21 @@
 package models
 
 import (
-	"math"
 	"testing"
 )
 
-// 仮のテスト
-func TestAbs(t *testing.T) {
-	got := math.Abs(-1)
-	if got != 1 {
-		t.Errorf("Abs(-1) = %f; want 1", got)
+func TestInit(t *testing.T) {
+	t.Skip("Skipping init test")
+}
+
+func TestEncrypt(t *testing.T) {
+	want := "9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684"
+	got := Encrypt("pass")
+	if got != want {
+		t.Errorf("want %s, but %s", want, got)
 	}
+}
+
+func TestCreateUUID(t *testing.T) {
+	t.Skip("Skipping createUUID test")
 }
