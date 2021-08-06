@@ -27,12 +27,12 @@ CREATE TABLE IF NOT EXISTS posts
   PRIMARY KEY (id)
 );
 
--- テストデータ
-INSERT INTO posts
-  (imagepath, title,	category,	prefecture,	description, user_id,	created_at)
-  VALUES
-  ("/var/www/image/akiya.jpeg", "空き家投稿", "空き家", "北海道", "空き家の詳細説明", 1, "2021-05-22 07:58:32")
-;
+-- -- テストデータ
+-- INSERT INTO posts
+--   (imagepath, title,	category,	prefecture,	description, user_id,	created_at)
+--   VALUES
+--   ("/var/www/image/akiya.jpeg", "空き家投稿", "空き家", "北海道", "空き家の詳細説明", 1, "2021-05-22 07:58:32")
+-- ;
 
 CREATE TABLE IF NOT EXISTS sessions(
   id INT NOT NULL AUTO_INCREMENT,
