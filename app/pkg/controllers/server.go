@@ -32,7 +32,6 @@ func session(w http.ResponseWriter, r *http.Request) (sess models.Session, err e
 
 var validPath = regexp.MustCompile("^/post/(edit|update|delete)/([0-9]+)$")
 
-// Handler関数を返す関数
 func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		q := validPath.FindStringSubmatch(r.URL.Path)
@@ -40,7 +39,6 @@ func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc
 			http.NotFound(w, r)
 			return
 		}
-		// Atoi(q[2])は二番目のココの部分 → /(edit|update|delete)/
 		qi, err := strconv.Atoi(q[2])
 		if err != nil {
 			http.NotFound(w, r)
