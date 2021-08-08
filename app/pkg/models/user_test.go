@@ -64,11 +64,8 @@ func TestUpdateUser(t *testing.T) {
 }
 
 func Test_UserDelete(t *testing.T) {
-	cmd := `DELETE FROM users WHERE name = "Alice";`
-	_, err = Db.Exec(cmd)
-	cmd = `DELETE FROM users WHERE name = "Alice Update";`
-	_, err = Db.Exec(cmd)
-
+	setup()
+	defer setup()
 	if err := users[0].CreateUser(); err != nil {
 		t.Errorf("Cannot create user. err: %v", err)
 	}
@@ -105,7 +102,6 @@ func TestCheckSession(t *testing.T) {
 		t.Errorf("Cannot create user. err: %v", err)
 	}
 	session, err := users[0].CreateSession()
-
 	uuid := session.UUID
 	s := Session{UUID: uuid}
 	valid, err := s.CheckSession()
@@ -118,11 +114,7 @@ func TestCheckSession(t *testing.T) {
 }
 
 func TestDeleteSessionByUUID(t *testing.T) {
-	cmd := `DELETE FROM users WHERE name = "Alice";`
-	_, err = Db.Exec(cmd)
-	cmd = `DELETE FROM sessions WHERE email = "alice@gmail.com";`
-	_, err = Db.Exec(cmd)
-
+	setup()
 	if err := users[0].CreateUser(); err != nil {
 		t.Errorf("Cannot create user. err: %v", err)
 	}
@@ -130,7 +122,6 @@ func TestDeleteSessionByUUID(t *testing.T) {
 	if err != nil {
 		t.Errorf("Cannot create session. err: %v", err)
 	}
-
 	uuid := session.UUID
 	s := Session{UUID: uuid}
 	err = s.DeleteSessionByUUID()
@@ -147,5 +138,25 @@ func TestDeleteSessionByUUID(t *testing.T) {
 }
 
 func GetUserBySession(t *testing.T) {
+	if err := users[0].CreateUser(); err != nil {
+		t.Errorf("Cannot create user. err: %v", err)
+	}
+	session, err := users[0].CreateSession()
+	uuid := session.UUID
+	s := Session{UUID: uuid}
+	user, err := s.GetUserBySession()
+	if err != nil {
+		t.Error(err, "Cannot get user by session")
+	}
+	if users[0].UUID != user.UUID {
+		t.Errorf("Wrong user by session. want:%v, got:%v", users[0].UUID, user.UUID)
+	}
+	defer setup()
+}
 
+func setup() {
+	cmd := `truncate table users;`
+	_, err = Db.Exec(cmd)
+	cmd = `truncate table sessions;`
+	_, err = Db.Exec(cmd)
 }
