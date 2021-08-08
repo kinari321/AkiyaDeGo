@@ -18,12 +18,6 @@ var users = []User{
 	},
 }
 
-// var sessions = []Session{
-// 	{
-// 		user.ID
-// 	}
-// }
-
 func TestCreateUser(t *testing.T) {
 	if err := users[0].CreateUser(); err != nil {
 		t.Errorf("Cannot create user. err: %v", err)
@@ -104,4 +98,54 @@ func TestCreateSession(t *testing.T) {
 	if session.UserID != users[0].ID {
 		t.Error("User not linked with session")
 	}
+}
+
+func TestCheckSession(t *testing.T) {
+	if err := users[0].CreateUser(); err != nil {
+		t.Errorf("Cannot create user. err: %v", err)
+	}
+	session, err := users[0].CreateSession()
+
+	uuid := session.UUID
+	s := Session{UUID: uuid}
+	valid, err := s.CheckSession()
+	if err != nil {
+		t.Error(err, "Cannot check session")
+	}
+	if valid != true {
+		t.Error(err, "Session is not valid")
+	}
+}
+
+func TestDeleteSessionByUUID(t *testing.T) {
+	cmd := `DELETE FROM users WHERE name = "Alice";`
+	_, err = Db.Exec(cmd)
+	cmd = `DELETE FROM sessions WHERE email = "alice@gmail.com";`
+	_, err = Db.Exec(cmd)
+
+	if err := users[0].CreateUser(); err != nil {
+		t.Errorf("Cannot create user. err: %v", err)
+	}
+	session, err := users[0].CreateSession()
+	if err != nil {
+		t.Errorf("Cannot create session. err: %v", err)
+	}
+
+	uuid := session.UUID
+	s := Session{UUID: uuid}
+	err = s.DeleteSessionByUUID()
+	if err != nil {
+		t.Error(err, "Cannot delete session")
+	}
+	valid, err := s.CheckSession()
+	if err == nil {
+		t.Error(err, "Cannot check session")
+	}
+	if valid == true {
+		t.Error(err, "Session is not valid")
+	}
+}
+
+func GetUserBySession(t *testing.T) {
+
 }
