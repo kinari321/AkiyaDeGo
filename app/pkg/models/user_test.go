@@ -30,3 +30,16 @@ func TestCreateUser(t *testing.T) {
 		t.Errorf("User retrieved is not the same as the one created.")
 	}
 }
+
+func TestGetUser(t *testing.T) {
+	if err := users[0].CreateUser(); err != nil {
+		t.Errorf("Cannot create user. err: %v", err)
+	}
+	u, err := GetUser(1)
+	if err != nil {
+		t.Errorf("Cannot retrieve user. err:%v", err)
+	}
+	if u.Email != users[0].Email {
+		t.Errorf("Wrong user retrieved. want:%v, get:%v", users[0], u)
+	}
+}
