@@ -12,21 +12,11 @@ import (
 	"time"
 )
 
-// type CRUDPost interface {
-// 	CreatePost() (err error)
-// 	GetPostsByUser() (posts []Post, err error)
-// 	UpdatePost() (err error)
-// 	DeletePost() (err error)
-// }
-
-// type MyPost struct {
-// }
-
 type Post struct {
 	ID          int
 	ImagePath   string
 	Title       string
-	Type        string
+	Category    string
 	Prefecture  string
 	Description string
 	UserID      int
@@ -37,7 +27,7 @@ func (p *Post) CreatePost() (err error) {
 	cmd := `INSERT INTO posts (
 		imagepath,
 		title,
-		type,
+		category,
 		prefecture,
 		description,
 		user_id,
@@ -45,7 +35,7 @@ func (p *Post) CreatePost() (err error) {
 	_, err = Db.Exec(cmd,
 		p.ImagePath,
 		p.Title,
-		p.Type,
+		p.Category,
 		p.Prefecture,
 		p.Description,
 		p.UserID,
@@ -64,7 +54,7 @@ func GetPost(id int) (post Post, err error) {
 		&post.ID,
 		&post.ImagePath,
 		&post.Title,
-		&post.Type,
+		&post.Category,
 		&post.Prefecture,
 		&post.Description,
 		&post.UserID,
@@ -74,7 +64,7 @@ func GetPost(id int) (post Post, err error) {
 }
 
 func GetPosts() (posts []Post, err error) {
-	cmd := `SELECT id, imagepath, title, type, prefecture, description, user_id, created_at FROM posts`
+	cmd := `SELECT id, imagepath, title, category, prefecture, description, user_id, created_at FROM posts`
 	rows, err := Db.Query(cmd)
 	if err != nil {
 		log.Fatalln(err)
@@ -85,7 +75,7 @@ func GetPosts() (posts []Post, err error) {
 			&post.ID,
 			&post.ImagePath,
 			&post.Title,
-			&post.Type,
+			&post.Category,
 			&post.Prefecture,
 			&post.Description,
 			&post.UserID,
@@ -115,7 +105,7 @@ func GetPosts() (posts []Post, err error) {
 }
 
 func (u *User) GetPostsByUser() (posts []Post, err error) {
-	cmd := `SELECT id, imagepath, title, type, prefecture, description, user_id, created_at FROM posts
+	cmd := `SELECT id, imagepath, title, category, prefecture, description, user_id, created_at FROM posts
 	WHERE user_id = ?`
 	rows, err := Db.Query(cmd, u.ID)
 	if err != nil {
@@ -127,7 +117,7 @@ func (u *User) GetPostsByUser() (posts []Post, err error) {
 			&post.ID,
 			&post.ImagePath,
 			&post.Title,
-			&post.Type,
+			&post.Category,
 			&post.Prefecture,
 			&post.Description,
 			&post.UserID,
@@ -158,9 +148,9 @@ func (u *User) GetPostsByUser() (posts []Post, err error) {
 
 // Updateは微妙！！！
 func (p *Post) UpdatePost() (err error) {
-	cmd := `UPDATE posts SET imagepath = ?, title = ?, type = ?, prefecture = ?,
+	cmd := `UPDATE posts SET imagepath = ?, title = ?, category = ?, prefecture = ?,
 		description = ?, user_id = ? WHERE id = ?`
-	_, err = Db.Exec(cmd, p.ImagePath, p.Title, p.Type, p.Prefecture, p.Description, p.UserID, p.ID)
+	_, err = Db.Exec(cmd, p.ImagePath, p.Title, p.Category, p.Prefecture, p.Description, p.UserID, p.ID)
 	if err != nil {
 		log.Fatalln(err)
 	}
