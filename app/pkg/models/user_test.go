@@ -18,6 +18,12 @@ var users = []User{
 	},
 }
 
+// var sessions = []Session{
+// 	{
+// 		user.ID
+// 	}
+// }
+
 func TestCreateUser(t *testing.T) {
 	if err := users[0].CreateUser(); err != nil {
 		t.Errorf("Cannot create user. err: %v", err)
@@ -82,5 +88,20 @@ func Test_UserDelete(t *testing.T) {
 	_, err = GetUserByEmail(users[0].Email)
 	if err != sql.ErrNoRows {
 		t.Error(err, "- User not deleted.")
+	}
+}
+
+// ーーーーーーーーーーーーーーーーーーーーーーSESSIONーーーーーーーーーーーーーーーーーーーーーー
+
+func TestCreateSession(t *testing.T) {
+	if err := users[0].CreateUser(); err != nil {
+		t.Errorf("Cannot create user. err: %v", err)
+	}
+	session, err := users[0].CreateSession()
+	if err != nil {
+		t.Errorf("Cannot create session. err: %v", err)
+	}
+	if session.UserID != users[0].ID {
+		t.Error("User not linked with session")
 	}
 }
