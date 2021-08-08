@@ -1,7 +1,7 @@
 package models
 
 import (
-	// "database/sql"
+	"database/sql"
 	"testing"
 )
 
@@ -35,11 +35,52 @@ func TestGetUser(t *testing.T) {
 	if err := users[0].CreateUser(); err != nil {
 		t.Errorf("Cannot create user. err: %v", err)
 	}
-	u, err := GetUser(1)
+	u, err := GetUserByEmail(users[0].Email)
+	if err != nil {
+		t.Errorf("User not created. err: %v", err)
+	}
+	u, err = GetUser(u.ID)
 	if err != nil {
 		t.Errorf("Cannot retrieve user. err:%v", err)
 	}
 	if u.Email != users[0].Email {
-		t.Errorf("Wrong user retrieved. want:%v, get:%v", users[0], u)
+		t.Errorf("Wrong user retrieved. want:%v, got:%v", users[0], u)
+	}
+}
+
+func TestUpdateUser(t *testing.T) {
+	if err := users[0].CreateUser(); err != nil {
+		t.Errorf("Cannot create user. err: %v", err)
+	}
+	u, err := GetUserByEmail(users[0].Email)
+	if err != nil {
+		t.Errorf("User not created. err: %v", err)
+	}
+	users[0].Name = "Alice Update"
+	users[0].ID = u.ID
+	if err := users[0].UpdateUser(); err != nil {
+		t.Errorf("Cannot update user. err:%v", err)
+	}
+}
+
+func Test_UserDelete(t *testing.T) {
+	cmd := `DELETE FROM users WHERE name = "Alice";`
+	_, err = Db.Exec(cmd)
+	cmd = `DELETE FROM users WHERE name = "Alice Update";`
+	_, err = Db.Exec(cmd)
+
+	if err := users[0].CreateUser(); err != nil {
+		t.Errorf("Cannot create user. err: %v", err)
+	}
+	u, err := GetUserByEmail(users[0].Email)
+	if err != nil {
+		t.Errorf("User not created. err: %v", err)
+	}
+	if err := u.DeleteUser(); err != nil {
+		t.Errorf("Cannot delete user. err:%v", err)
+	}
+	_, err = GetUserByEmail(users[0].Email)
+	if err != sql.ErrNoRows {
+		t.Error(err, "- User not deleted.")
 	}
 }
