@@ -157,4 +157,6 @@ func setup() {
 	_, err = Db.Exec(cmd)
 	cmd = `truncate table sessions;`
 	_, err = Db.Exec(cmd)
+	cmd = `truncate table posts;`
+	_, err = Db.Exec(cmd)
 }
