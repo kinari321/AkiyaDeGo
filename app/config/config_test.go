@@ -5,5 +5,4 @@ import (
 )
 
 func TestLoadConfig(t *testing.T) {
-	t.Skip("Skipping LoadConfig test")
 }

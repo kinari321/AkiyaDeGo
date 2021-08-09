@@ -5,7 +5,6 @@ import (
 )
 
 func TestInit(t *testing.T) {
-	t.Skip("Skipping init test")
 }
 
 func TestEncrypt(t *testing.T) {
@@ -17,5 +16,4 @@ func TestEncrypt(t *testing.T) {
 }
 
 func TestCreateUUID(t *testing.T) {
-	t.Skip("Skipping createUUID test")
 }

@@ -1,9 +1,6 @@
 package models
 
 import (
-	// "fmt"
-	// "github.com/DATA-DOG/go-sqlmock"
-	// "regexp"
 	"testing"
 )
 
