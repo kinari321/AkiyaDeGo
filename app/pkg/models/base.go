@@ -44,7 +44,7 @@ func init() {
 		id INT NOT NULL AUTO_INCREMENT,
 		imagepath TEXT NULL,
 		title TEXT NOT NULL,
-		type TEXT NOT NULL,
+		category TEXT NOT NULL,
 		prefecture TEXT NOT NULL,
 		description TEXT NULL,
 		user_id INT NOT NULL,
