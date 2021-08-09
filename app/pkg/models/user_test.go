@@ -82,8 +82,6 @@ func Test_UserDelete(t *testing.T) {
 	}
 }
 
-// ーーーーーーーーーーーーーーーーーーーーーーSESSIONーーーーーーーーーーーーーーーーーーーーーー
-
 func TestCreateSession(t *testing.T) {
 	if err := users[0].CreateUser(); err != nil {
 		t.Errorf("Cannot create user. err: %v", err)
