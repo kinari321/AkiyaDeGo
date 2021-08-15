@@ -38,6 +38,7 @@ body {
 .properties th {
   border: 0;
   border-top: 1.5px solid #00458b;
+  white-space: pre-wrap;
 }
 
 .properties th {
