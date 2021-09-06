@@ -126,3 +126,4 @@ main
 webapp.log
 a.txt
 test.jpg
+.env
