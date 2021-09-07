@@ -8,6 +8,6 @@ import (
 )
 
 func main() {
-	fmt.Println(config.Config.Port)
+	fmt.Println(config.Config)
 	controllers.StartMainServer()
 }

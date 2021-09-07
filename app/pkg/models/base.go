@@ -6,12 +6,18 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/uuid"
+	"github.com/kinari321/AkiyaDeGo/app/config"
 	"log"
 )
 
 var (
-	Db  *sql.DB
-	err error
+	Db         *sql.DB
+	err        error
+	USER       = config.Config.DBUser
+	DBMS       = "mysql"
+	DBPROTOCOL = config.Config.DBProtocol
+	DBNAME     = config.Config.DBName
+	DBPASS     = config.Config.DBPass
 )
 
 const (
@@ -21,8 +27,9 @@ const (
 )
 
 func init() {
+	Db, err = sql.Open(DBMS, USER+":"+DBPASS+"@"+DBPROTOCOL+"/"+DBNAME+"?charset=utf8&parseTime=true&loc=Asia%2FTokyo") // 環境変数
 	// Db, err = sql.Open("mysql", "akiya:password@tcp(127.0.0.1:3306)/akiyadego?parseTime=true") // ローカル
-	Db, err = sql.Open("mysql", "akiya:password@tcp(mysql_container:3306)/akiyadego?parseTime=true") // Docker
+	// Db, err = sql.Open("mysql", "akiya:password@tcp(mysql_container:3306)/akiyadego?parseTime=true") // Docker
 	if err != nil {
 		log.Fatalln(err)
 	}
