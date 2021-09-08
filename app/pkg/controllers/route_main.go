@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/kinari321/AkiyaDeGo/app/pkg/models"
 	"html/template"
 	"io"
@@ -81,7 +80,7 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 				defer file.Close()
 
 				uploadedFileName := fileHeader.Filename
-				fmt.Println(uploadedFileName)
+				log.Println(uploadedFileName)
 				// path := "/var/www/image/" + uploadedFileName // ローカル用
 				path := "/usr/share/nginx/html/media/" + uploadedFileName // EC2用
 				f, err := os.Create(path)
