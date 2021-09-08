@@ -27,9 +27,7 @@ const (
 )
 
 func init() {
-	Db, err = sql.Open(DBMS, USER+":"+DBPASS+"@"+DBPROTOCOL+"/"+DBNAME+"?charset=utf8&parseTime=true&loc=Asia%2FTokyo") // 環境変数
-	// Db, err = sql.Open("mysql", "akiya:password@tcp(127.0.0.1:3306)/akiyadego?parseTime=true") // ローカル
-	// Db, err = sql.Open("mysql", "akiya:password@tcp(mysql_container:3306)/akiyadego?parseTime=true") // Docker
+	Db, err = sql.Open(DBMS, USER+":"+DBPASS+"@"+DBPROTOCOL+"/"+DBNAME+"?charset=utf8&parseTime=true&loc=Asia%2FTokyo")
 	if err != nil {
 		log.Fatalln(err)
 	}
