@@ -34,7 +34,6 @@ func getDotEnv() ConfigList {
 	if err != nil {
 		log.Println("Error loading .env file")
 	}
-	Config.Port = os.Getenv("PORT")
 	Config.DBName = os.Getenv("DBNAME")
 	Config.DBUser = os.Getenv("DBUSER")
 	Config.DBPass = os.Getenv("DBPASS")
