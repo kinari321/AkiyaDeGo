@@ -18,10 +18,10 @@ services:
     image: mysql:5.7
     container_name: mysql_container
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: akiyadego
-      MYSQL_USER: akiya
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${DBPASS}
+      MYSQL_DATABASE: ${DBNAME}
+      MYSQL_USER: ${DBUSER}
+      MYSQL_PASSWORD: ${AKIYAPASS}
       TZ: Asia/Tokyo
     build: ./mysql/
     volumes:
