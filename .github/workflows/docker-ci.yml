@@ -30,8 +30,6 @@ jobs:
           echo "LOGFILE=${{ secrets.LOGFILE }}" >> ./app/.env
           echo "STATIC=${{ secrets.STATIC }}" >> ./app/.env
           echo "AKIYAPASS=${{ secrets.AKIYAPASS }}" >> ./app/.env
-          cat ./app/.env
-          ls -la ./app/
 
       - name: Test with docker-compose stack
         run: |
