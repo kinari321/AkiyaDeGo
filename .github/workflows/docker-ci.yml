@@ -19,7 +19,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Create dot env file
+        run: |
+          touch ./app/.env
+          echo "DBNAME=${{ secrets.DBNAME }}" >> ./app/.env
+          echo "DBUSER=${{ secrets.DBUSER }}" >> ./app/.env
+          echo "DBPASS=${{ secrets.DBPASS }}" >> ./app/.env
+          echo "DBPROTOCOL=${{ secrets.DBPROTOCOL }}" >> ./app/.env
+          echo "LOGFILE=${{ secrets.LOGFILE }}" >> ./app/.env
+          echo "STATIC=${{ secrets.STATIC }}" >> ./app/.env
+          echo "AKIYAPASS=${{ secrets.AKIYAPASS }}" >> ./app/.env
+          cat .env
+          ls -la ./app/
+
       - name: Test with docker-compose stack
         run: |
-          docker-compose up -d --remove-orphans
+          docker-compose --env-file ./app/.env up -d --remove-orphans
           docker exec go_container go test -cover -v ./...
