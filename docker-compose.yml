@@ -11,6 +11,8 @@ services:
       - type: bind
         source: ./app/
         target: /go/src/work/
+    environment:
+      ENV_PATH: /go/src/work/.env
     depends_on:
       - db
 
