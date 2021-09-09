@@ -30,7 +30,8 @@ func LoadConfig() {
 }
 
 func getDotEnv() ConfigList {
-	err := godotenv.Load("/go/src/work/.env")
+	env_path := os.Getenv("ENV_PATH")
+	err := godotenv.Load(env_path)
 	if err != nil {
 		log.Println("Error loading .env file")
 	}
