@@ -14,6 +14,10 @@ on:
     paths-ignore:
       - README.md
 
+env:
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
+
 jobs:
   build:
     runs-on: ubuntu-latest
