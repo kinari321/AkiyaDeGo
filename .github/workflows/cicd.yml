@@ -17,6 +17,13 @@ on:
 env:
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1
+  DBNAME: ${{ secrets.DBNAME }}
+  DBUSER: ${{ secrets.DBUSER }}
+  DBPASS: ${{ secrets.DBPASS }}
+  DBPROTOCOL: ${{ secrets.DBPROTOCOL }}
+  LOGFILE: ${{ secrets.LOGFILE }}
+  STATIC: ${{ secrets.STATIC }}
+  AKIYAPASS: ${{ secrets.AKIYAPASS }}
 
 jobs:
   build:
