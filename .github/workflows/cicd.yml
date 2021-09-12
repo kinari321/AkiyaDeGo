@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Create dot env file
         run: |
-          sh ./env.sh
+          sh ./app/env.sh
       - name: Test with docker-compose stack
         run: |
           docker-compose --env-file ./app/.env up -d --remove-orphans
