@@ -54,7 +54,7 @@ jobs:
         run: |
           echo "プライベートキー 前"
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          echo -e "プライベートキー 後！\n ssh開始"
+          echo -e "プライベートキー 後！\n  ============= ssh開始 ============= "
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_NAME} '
             echo "ssh接続できてます！" &&
             cd ./go/src/AkiyaDeGo &&
@@ -64,4 +64,4 @@ jobs:
             git branch &&
             make deploy
           '
-          echo "ssh 終了！"
+          echo " ============= ssh 終了！ ============= "
