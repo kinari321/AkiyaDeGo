@@ -17,23 +17,51 @@ on:
 env:
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1
-  DBNAME: ${{ secrets.DBNAME }}
-  DBUSER: ${{ secrets.DBUSER }}
-  DBPASS: ${{ secrets.DBPASS }}
-  DBPROTOCOL: ${{ secrets.DBPROTOCOL }}
-  LOGFILE: ${{ secrets.LOGFILE }}
-  STATIC: ${{ secrets.STATIC }}
-  AKIYAPASS: ${{ secrets.AKIYAPASS }}
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Create dot env file
         run: |
-          sh ./.github/env.sh
+          touch ./app/.env
+          echo "DBNAME=${{ secrets.DBNAME }}" >> ./app/.env
+          echo "DBUSER=${{ secrets.DBUSER }}" >> ./app/.env
+          echo "DBPASS=${{ secrets.DBPASS }}" >> ./app/.env
+          echo "DBPROTOCOL=${{ secrets.DBPROTOCOL }}" >> ./app/.env
+          echo "LOGFILE=${{ secrets.LOGFILE }}" >> ./app/.env
+          echo "STATIC=${{ secrets.STATIC }}" >> ./app/.env
+          echo "AKIYAPASS=${{ secrets.AKIYAPASS }}" >> ./app/.env
       - name: Test with docker-compose stack
         run: |
           docker-compose --env-file ./app/.env up -d --remove-orphans
           docker exec go_container go test -cover -v ./...
+
+  deploy:
+    # if: github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          HOST_NAME: ${{ secrets.HOST_NAME }}
+          # AWS_DEFAULT_REGION: ap-northeast-1
+        run: |
+          echo "プライベートキー 前"
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          echo -e "プライベートキー 後！\n ssh開始"
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_NAME} '
+            echo "ssh接続できてます！" &&
+            cd ./go/src/AkiyaDeGo &&
+            git checkout develop &&
+            git pull origin develop &&
+            pwd &&
+            git branch &&
+            make deploy
+          '
+          echo "ssh 終了！"
