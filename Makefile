@@ -33,15 +33,15 @@ kill-app-process: ## ローカルのアプリプロセスを殺す
 
 .PHONY: go-package-get
 go-package-get: ## パッケージをインストール
-	pwd && cd ./app && go get && pwd
+	echo "= パッケージをインストール =" && cd ./app  && go get && pwd
 
 .PHONY: build-app
 build-app: ## アプリのビルド
-	pwd && go build ./app/main.go
+	echo "= アプリのビルド =" && pwd && cd ./app && go build ./main.go
 
 .PHONY: run-app-with-background
 run-app-with-background: ## アプリを起動
-	pwd && ./app/main &
+	echo "= アプリを起動 =" && pwd && cd ./app && ./main &
 
 .PHONY: deploy
 deploy: ## アプリをデプロイ
