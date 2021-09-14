@@ -128,3 +128,4 @@ a.txt
 test.jpg
 .env
 .dockerignore
+.env.local
