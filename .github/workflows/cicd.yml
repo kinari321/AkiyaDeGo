@@ -61,6 +61,7 @@ jobs:
             git checkout develop &&
             git pull origin develop &&
             pwd &&
+            echo $ENV_PATH &&
             git branch &&
             make deploy
           '
