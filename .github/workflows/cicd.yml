@@ -59,8 +59,8 @@ jobs:
             echo "ssh接続できてます！" &&
             export ENV_PATH=$PWD/.env &&
             cd ./go/src/AkiyaDeGo &&
-            git checkout develop &&
-            git pull origin develop &&
+            git checkout main &&
+            git pull origin main &&
             pwd &&
             echo $ENV_PATH &&
             git branch &&
