@@ -37,7 +37,7 @@ go-package-get: ## パッケージをインストール
 
 .PHONY: build-app
 build-app: ## アプリのビルド
-	echo "= アプリのビルド =" && pwd && cd ./app && go build ./main.go
+	echo "= アプリのビルド =" && pwd && cd ./app && rm ./main && go build ./main.go
 
 .PHONY: run-app-with-background
 run-app-with-background: ## アプリを起動
