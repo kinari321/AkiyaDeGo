@@ -68,5 +68,5 @@ func StartMainServer() error {
 	http.HandleFunc("/post/update/", parseURL(postUpdate))
 	http.HandleFunc("/post/delete/", parseURL(postDelete))
 
-	return http.ListenAndServe(":"+config.Config.Port, nil)
+	return http.ListenAndServe(":8080", nil)
 }
