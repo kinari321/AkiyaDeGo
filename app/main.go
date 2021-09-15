@@ -1,13 +1,11 @@
 package main
 
 import (
-	"fmt"
-	"github.com/kinari321/AkiyaDeGo/app/config"
+	_ "github.com/kinari321/AkiyaDeGo/app/config"
 	"github.com/kinari321/AkiyaDeGo/app/pkg/controllers"
 	_ "github.com/kinari321/AkiyaDeGo/app/pkg/models"
 )
 
 func main() {
-	fmt.Println(config.Config)
 	controllers.StartMainServer()
 }
