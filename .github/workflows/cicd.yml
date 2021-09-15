@@ -40,7 +40,6 @@ jobs:
           docker exec go_container go test -cover -v ./...
 
   deploy:
-    # if: github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -61,9 +60,6 @@ jobs:
             cd ./go/src/AkiyaDeGo &&
             git checkout main &&
             git pull origin main &&
-            pwd &&
-            echo $ENV_PATH &&
-            git branch &&
             make deploy
           '
           echo " ============= ssh 終了！ ============= "
