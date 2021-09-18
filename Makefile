@@ -1,12 +1,12 @@
 ################################################################################
 # nginx  →　$make nginx
 #
-#	deploy →　$make deploy
+#       deploy →　$make deploy
 ################################################################################
 
 .PHONY: hello
 hello: ## echo
-	echo Hello
+        echo Hello
 
 ###############
 # nginxまわり
@@ -17,39 +17,39 @@ hello: ## echo
 
 .PHONY: nginx-restart
 nginx-restart: ## nginxの再起動
-	sudo systemctl restart nginx
+        sudo systemctl restart nginx
 
 .PHONY: nginx
 nginx: ## nginxのセットアップ
-	make nginx-copy-conf
-	make nginx-restart
+        make nginx-copy-conf
+        make nginx-restart
 
 ###############
 # デプロイまわり
 ###############
 .PHONY: kill-app-process
 kill-app-process: ## ローカルのアプリプロセスを殺す
-	(kill $(shell lsof -i :8080 -t)) || echo ":8080で動いてるプロセスはありません"
+        (kill $(shell lsof -i :8080 -t)) || echo ":8080で動いてるプロセスはありません"
 
 .PHONY: go-package-get
 go-package-get: ## パッケージをインストール
-	echo "= パッケージをインストール =" && cd ./app  && go get && pwd
+        go get
 
 .PHONY: build-app
 build-app: ## アプリのビルド
-	echo "= アプリのビルド =" && pwd && cd ./app && rm ./main && go build ./main.go
+        go build ./main.go
 
 .PHONY: run-app-with-background
 run-app-with-background: ## アプリを起動
-	echo "= アプリを起動 =" && pwd && cd ./app && ./main &
+        ./main &
 
 .PHONY: deploy
 deploy: ## アプリをデプロイ
-	make kill-app-process
-	make go-package-get
-	make build-app
-	make run-app-with-background
-	curl localhost
+        make kill-app-process
+        make go-package-get
+        make build-app
+        make run-app-with-background
+        curl localhost
 
 ################################################################################
 # マクロ
@@ -67,12 +67,12 @@ endef
 ################################################################################
 .PHONY: help
 help: ## Make タスク一覧
-	@echo '######################################################################'
-	@echo '# Makeタスク一覧'
-	@echo '# $$ make XXX'
-	@echo '# or'
-	@echo '# $$ make XXX --dry-run'
-	@echo '######################################################################'
-	@echo $(MAKEFILE_LIST) \
-	| tr ' ' '\n' \
-	| xargs -I {included-makefile} $(call help,{included-makefile})
+        @echo '######################################################################'
+        @echo '# Makeタスク一覧'
+        @echo '# $$ make XXX'
+        @echo '# or'
+        @echo '# $$ make XXX --dry-run'
+        @echo '######################################################################'
+        @echo $(MAKEFILE_LIST) \
+        | tr ' ' '\n' \
+        | xargs -I {included-makefile} $(call help,{included-makefile})
