@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	sentry "github.com/getsentry/sentry-go"
+	"github.com/getsentry/sentry-go"
 	"github.com/joho/godotenv"
 )
 
@@ -60,7 +60,13 @@ func LoadSentry() {
 		log.Fatalf("sentry.Init: %s", err)
 	}
 	// Flush buffered events before the program terminates.
-	defer sentry.Flush(2 * time.Second)
+	defer func() {
+		err := recover()
 
-	sentry.CaptureMessage("It works!")
+		if err != nil {
+			sentry.CurrentHub().Recover(err)
+			sentry.Flush(time.Second * 5)
+		}
+	}()
+
 }
