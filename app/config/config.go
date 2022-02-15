@@ -6,6 +6,8 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/getsentry/sentry-go"
+
 )
 
 type ConfigList struct {
@@ -22,11 +24,18 @@ var Config ConfigList
 
 func init() {
 	LoadConfig()
+	LoadSentry()
 	utils.LoggingSettings(Config.LogFile)
 }
 
 func LoadConfig() {
 	Config = getDotEnv()
+}
+
+func LoadSentry(){
+	err := sentry.Init(sentry.ClientOptions{
+		Dsn: 
+	})
 }
 
 func getDotEnv() ConfigList {
