@@ -3,13 +3,15 @@ package models
 import (
 	"bytes"
 	"encoding/base64"
-	"github.com/nfnt/resize"
+	"fmt"
 	"image"
 	"image/jpeg"
 	_ "image/png"
-	"log"
 	"os"
 	"time"
+
+	"github.com/kinari321/AkiyaDeGo/app/errors"
+	"github.com/nfnt/resize"
 )
 
 type Post struct {
@@ -41,7 +43,7 @@ func (p *Post) CreatePost() (err error) {
 		p.UserID,
 		time.Now())
 	if err != nil {
-		log.Fatalln(err)
+		return errors.SetError(errors.ErrDataBase, fmt.Sprintf("create post failed: %s", err))
 	}
 	return err
 }
@@ -67,7 +69,7 @@ func GetPosts() (posts []Post, err error) {
 	cmd := `SELECT id, imagepath, title, category, prefecture, description, user_id, created_at FROM posts`
 	rows, err := Db.Query(cmd)
 	if err != nil {
-		log.Fatalln(err)
+		return nil, errors.SetError(errors.ErrDataBase, fmt.Sprintf("get posts failed: %s", err))
 	}
 	for rows.Next() {
 		var post Post
@@ -82,18 +84,27 @@ func GetPosts() (posts []Post, err error) {
 			&post.CreatedAt,
 		)
 		if err != nil {
-			log.Fatalln(err)
+			return nil, errors.SetError(errors.ErrDataBase, fmt.Sprintf("get posts failed: %s", err))
 		}
 		{
-			file, _ := os.Open(post.ImagePath)
+			file, err := os.Open(post.ImagePath)
 			defer file.Close()
-			decodeImage, _, _ := image.Decode(file)
+			if err != nil {
+				return nil, errors.SetError(errors.ErrPath, fmt.Sprintf("open file failed: %s", err))
+			}
+			decodeImage, _, err := image.Decode(file)
+			if err != nil {
+				return nil, errors.SetError(errors.ErrImage, fmt.Sprintf("decode image failed: %s", err))
+			}
 			m := resize.Resize(400, 0, decodeImage, resize.Lanczos3)
-			file, _ = os.Open(post.ImagePath)
+			file, err = os.Open(post.ImagePath)
+			if err != nil {
+				return nil, errors.SetError(errors.ErrPath, fmt.Sprintf("open file failed: %s", err))
+			}
 			defer file.Close()
 			buffer := new(bytes.Buffer)
 			if err := jpeg.Encode(buffer, m, nil); err != nil {
-				log.Fatalln("Unable to encode image.")
+				return nil, errors.SetError(errors.ErrImage, fmt.Sprintf("encode image failed: %s", err))
 			}
 			str := base64.StdEncoding.EncodeToString(buffer.Bytes())
 			post.ImagePath = str
@@ -109,7 +120,7 @@ func (u *User) GetPostsByUser() (posts []Post, err error) {
 	WHERE user_id = ?`
 	rows, err := Db.Query(cmd, u.ID)
 	if err != nil {
-		log.Fatalln(err)
+		return nil, errors.SetError(errors.ErrDataBase, fmt.Sprintf("create uuid failed: %s", err))
 	}
 	for rows.Next() {
 		var post Post
@@ -124,18 +135,22 @@ func (u *User) GetPostsByUser() (posts []Post, err error) {
 			&post.CreatedAt,
 		)
 		if err != nil {
-			log.Fatalln(err)
+			return nil, errors.SetError(errors.ErrDataBase, fmt.Sprintf("create uuid failed: %s", err))
 		}
 		{
-			file, _ := os.Open(post.ImagePath)
+			file, err := os.Open(post.ImagePath)
+			if err != nil {
+				return nil, errors.SetError(errors.ErrDataBase, fmt.Sprintf("create uuid failed: %s", err))
+			}
 			defer file.Close()
-			decodeImage, _, _ := image.Decode(file)
+			decodeImage, _, err := image.Decode(file)
+			if err != nil {
+				return nil, errors.SetError(errors.ErrDataBase, fmt.Sprintf("create uuid failed: %s", err))
+			}
 			m := resize.Resize(400, 0, decodeImage, resize.Lanczos3)
-			file, _ = os.Open(post.ImagePath)
-			defer file.Close()
 			buffer := new(bytes.Buffer)
 			if err := jpeg.Encode(buffer, m, nil); err != nil {
-				log.Fatalln("Unable to encode image.")
+				return nil, errors.SetError(errors.ErrDataBase, fmt.Sprintf("create uuid failed: %s", err))
 			}
 			str := base64.StdEncoding.EncodeToString(buffer.Bytes())
 			post.ImagePath = str
@@ -152,7 +167,7 @@ func (p *Post) UpdatePost() (err error) {
 		description = ?, user_id = ? WHERE id = ?`
 	_, err = Db.Exec(cmd, p.ImagePath, p.Title, p.Category, p.Prefecture, p.Description, p.UserID, p.ID)
 	if err != nil {
-		log.Fatalln(err)
+		return errors.SetError(errors.ErrDataBase, fmt.Sprintf("update post failed: %s", err))
 	}
 	return err
 }
@@ -161,7 +176,7 @@ func (p *Post) DeletePost() (err error) {
 	cmd := `DELETE FROM posts WHERE id = ?`
 	_, err = Db.Exec(cmd, p.ID)
 	if err != nil {
-		log.Fatalln(err)
+		return errors.SetError(errors.ErrDataBase, fmt.Sprintf("delete post failed: %s", err))
 	}
 	return err
 }

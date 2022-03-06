@@ -1,7 +1,10 @@
 package models
 
 import (
+	"fmt"
 	"time"
+
+	"github.com/kinari321/AkiyaDeGo/app/errors"
 )
 
 type User struct {
@@ -33,7 +36,7 @@ func (u *User) CreateUser() (err error) {
  		created_at) VALUES (?, ?, ?, ?, ?)`
 	uuid, err := CreateUUID()
 	if err != nil {
-		return err
+		return errors.SetError(errors.ErrNewUUID, fmt.Sprintf("create uuid failed: %s", err))
 	}
 	_, err = Db.Exec(cmd,
 		uuid,
@@ -42,7 +45,7 @@ func (u *User) CreateUser() (err error) {
 		Encrypt(u.PassWord),
 		time.Now())
 	if err != nil {
-		return err
+		return errors.SetError(errors.ErrDataBase, fmt.Sprintf("create user failed: %s", err))
 	}
 	return err
 }
@@ -66,7 +69,7 @@ func (u *User) UpdateUser() (err error) {
 	cmd := `UPDATE users SET name = ?, email = ? WHERE id = ?`
 	_, err = Db.Exec(cmd, u.Name, u.Email, u.ID)
 	if err != nil {
-		return err
+		return errors.SetError(errors.ErrDataBase, fmt.Sprintf("update user failed: %s", err))
 	}
 	return err
 }
@@ -75,7 +78,8 @@ func (u *User) DeleteUser() (err error) {
 	cmd := `DELETE FROM users WHERE id = ?`
 	_, err = Db.Exec(cmd, u.ID)
 	if err != nil {
-		return err
+		return errors.SetError(errors.ErrDataBase, fmt.Sprintf("delete user failed: %s", err))
+
 	}
 	return err
 }
