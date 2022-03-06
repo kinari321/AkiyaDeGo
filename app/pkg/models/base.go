@@ -77,7 +77,7 @@ func Encrypt(plaintext string) (cryptext string) {
 func CreateUUID() (uuid.UUID, error) {
 	uuidobj, err := uuid.NewUUID()
 	if err != nil {
-		return uuidobj, errors.SetError(errors.ErrNewUUID, fmt.Sprintf("invalid uuid: %s", errors.ErrNewUUID))
+		return uuidobj, errors.SetError(errors.ErrNewUUID, fmt.Sprintf("invalid uuid: %s", err))
 	}
 	return uuidobj, nil
 }
