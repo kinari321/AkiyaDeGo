@@ -11,10 +11,15 @@ type Code string
 type Err string
 
 const (
-	ErrHoge     Code = "err Hoge"       // sample error
-	ErrUnknown  Code = "unknown error"  // unknown error
-	ErrDataBase Code = "database error" // database error
-	ErrNewUUID  Code = "uuid error"     // uuid error
+	ErrHoge       Code = "err Hoge"          // sample error
+	ErrUnknown    Code = "unknown error"     // unknown error
+	ErrDataBase   Code = "database error"    // database error
+	ErrNewUUID    Code = "uuid error"        // uuid error
+	ErrCreateUser Code = "create user error" // create user error
+	ErrUpdateUser Code = "update user error" // update user error
+	ErrPath       Code = "path error"        // path error
+	ErrImage      Code = "image error"       // image error
+	ErrSession    Code = "session error"     // session error
 )
 
 type Error struct {

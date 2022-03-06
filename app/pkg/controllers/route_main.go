@@ -1,18 +1,23 @@
 package controllers
 
 import (
-	"github.com/kinari321/AkiyaDeGo/app/pkg/models"
 	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/kinari321/AkiyaDeGo/app/errors"
+	"github.com/kinari321/AkiyaDeGo/app/pkg/models"
 )
 
 func handleTop(w http.ResponseWriter, r *http.Request) {
 	_, err := session(w, r)
 	if err != nil {
-		posts, _ := models.GetPosts()
+		posts, err := models.GetPosts()
+		if err != nil {
+			log.Printf("get posts failed: %+v\n", errors.StackTrace(err))
+		}
 		generateHTML(w, posts, "layout", "public_navbar", "top")
 	} else {
 		http.Redirect(w, r, "/index", 302)
@@ -35,9 +40,12 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	} else {
 		user, err := sess.GetUserBySession()
 		if err != nil {
-			log.Println(err)
+			log.Printf("get user by session failed: %+v\n", errors.StackTrace(err))
 		}
-		posts, _ := user.GetPostsByUser()
+		posts, err := user.GetPostsByUser()
+		if err != nil {
+			log.Printf("get posts by user failed: %+v\n", errors.StackTrace(err))
+		}
 		user.Posts = posts
 		generateHTML(w, user, "layout", "private_navbar", "index")
 	}
@@ -59,33 +67,33 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 	} else {
 		err = r.ParseForm()
 		if err != nil {
-			log.Println(err)
+			log.Printf("parse form failed: %+v\n", errors.StackTrace(err))
 		}
 		user, err := sess.GetUserBySession()
 		if err != nil {
-			log.Println(err)
+			log.Printf("get user by session failed: %+v\n", errors.StackTrace(err))
 			http.Redirect(w, r, "/post/new", 302)
 		}
 		err = r.ParseMultipartForm(32 << 20)
 		if err != nil {
-			log.Println(err)
+			log.Printf("parse form failed: %+v\n", errors.StackTrace(err))
 			http.Redirect(w, r, "/post/new", 302)
 		} else {
 
 			file, fileHeader, err := r.FormFile("image")
 			if err != nil {
-				log.Println(err)
+				log.Printf("form file failed: %+v\n", errors.StackTrace(err))
 				http.Redirect(w, r, "/post/new", 302)
 			} else {
 				defer file.Close()
 
 				uploadedFileName := fileHeader.Filename
-				log.Println(uploadedFileName)
-				// path := "/var/www/image/" + uploadedFileName // ローカル用
-				path := "/usr/share/nginx/html/media/" + uploadedFileName // EC2用
+				log.Printf("uploadedFileName: %v\n", uploadedFileName)
+				path := "/var/www/image/" + uploadedFileName // ローカル用
+				// path := "/usr/share/nginx/html/media/" + uploadedFileName // EC2用
 				f, err := os.Create(path)
 				if err != nil {
-					log.Println(err)
+					log.Printf("create file failed: %+v\n", errors.StackTrace(err))
 					http.Redirect(w, r, "/post/new", 302)
 				}
 				defer f.Close()
@@ -99,7 +107,7 @@ func postSave(w http.ResponseWriter, r *http.Request) {
 				p.Description = r.PostFormValue("description")
 				p.UserID = user.ID
 				if err := p.CreatePost(); err != nil {
-					log.Println(err)
+					log.Printf("create post failed: %+v\n", errors.StackTrace(err))
 					http.Redirect(w, r, "/post/new", 302)
 				}
 				http.Redirect(w, r, "/index", 302)
@@ -115,11 +123,11 @@ func postEdit(w http.ResponseWriter, r *http.Request, id int) {
 	} else {
 		_, err := sess.GetUserBySession()
 		if err != nil {
-			log.Println(err)
+			log.Printf("get user by session failed: %+v\n", errors.StackTrace(err))
 		}
 		p, err := models.GetPost(id)
 		if err != nil {
-			log.Println(err)
+			log.Printf("get post failed: %+v\n", errors.StackTrace(err))
 		}
 		generateHTML(w, p, "layout", "private_navbar", "post_edit")
 	}
@@ -132,11 +140,11 @@ func postUpdate(w http.ResponseWriter, r *http.Request, id int) {
 	} else {
 		err = r.ParseForm()
 		if err != nil {
-			log.Println(err)
+			log.Printf("parse form failed: %+v\n", errors.StackTrace(err))
 		}
 		user, err := sess.GetUserBySession()
 		if err != nil {
-			log.Println(err)
+			log.Printf("get user by session failed: %+v\n", errors.StackTrace(err))
 		}
 		p, err := models.GetPost(id)
 		title := r.PostFormValue("title")
@@ -150,7 +158,7 @@ func postUpdate(w http.ResponseWriter, r *http.Request, id int) {
 			Description: description,
 			UserID:      user.ID}
 		if err := post.UpdatePost(); err != nil {
-			log.Println(err)
+			log.Printf("update post failed: %+v\n", errors.StackTrace(err))
 		}
 		http.Redirect(w, r, "/index", 302)
 	}
@@ -163,14 +171,14 @@ func postDelete(w http.ResponseWriter, r *http.Request, id int) {
 	} else {
 		_, err := sess.GetUserBySession()
 		if err != nil {
-			log.Println(err)
+			log.Printf("get user by session failed: %+v\n", errors.StackTrace(err))
 		}
 		t, err := models.GetPost(id)
 		if err != nil {
-			log.Println(err)
+			log.Printf("get post failed: %+v\n", errors.StackTrace(err))
 		}
 		if err := t.DeletePost(); err != nil {
-			log.Println(err)
+			log.Printf("delete post failed: %+v\n", errors.StackTrace(err))
 		}
 		http.Redirect(w, r, "/index", 302)
 	}

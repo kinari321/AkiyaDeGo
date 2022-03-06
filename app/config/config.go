@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/kinari321/AkiyaDeGo/app/error"
+	"github.com/kinari321/AkiyaDeGo/app/errors"
 	"github.com/kinari321/AkiyaDeGo/app/utils"
 
 	"github.com/getsentry/sentry-go"
@@ -59,7 +59,7 @@ func LoadSentry() {
 		Dsn: dsn,
 	})
 	if err != nil {
-		log.Fatalf("sentry.Init: %s", error.StackTrace(err))
+		log.Fatalf("sentry.Init: %s", errors.StackTrace(err))
 	}
 	// Flush buffered events before the program terminates.
 	defer func() {
