@@ -4,15 +4,16 @@ import (
 	"crypto/sha1"
 	"database/sql"
 	"fmt"
+	"log"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/uuid"
 	"github.com/kinari321/AkiyaDeGo/app/config"
-	"log"
+	"github.com/kinari321/AkiyaDeGo/app/errors"
 )
 
 var (
 	Db         *sql.DB
-	err        error
 	USER       = config.Config.DBUser
 	DBMS       = "mysql"
 	DBPROTOCOL = config.Config.DBProtocol
@@ -27,12 +28,12 @@ const (
 )
 
 func init() {
-	Db, err = sql.Open(DBMS, USER+":"+DBPASS+"@"+DBPROTOCOL+"/"+DBNAME+"?charset=utf8&parseTime=true&loc=Asia%2FTokyo")
+	Db, err := sql.Open(DBMS, USER+":"+DBPASS+"@"+DBPROTOCOL+"/"+DBNAME+"?charset=utf8&parseTime=true&loc=Asia%2FTokyo")
 	if err != nil {
-		log.Fatalln(err)
+		log.Printf("database open failed: %+v\n", errors.StackTrace(err))
 	}
 	if err := Db.Ping(); err != nil {
-		log.Fatal(err)
+		log.Printf("database connection failed: %+v\n", errors.StackTrace(err))
 	}
 
 	cmdU := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
@@ -73,7 +74,10 @@ func Encrypt(plaintext string) (cryptext string) {
 	return cryptext
 }
 
-func CreateUUID() (uuidobj uuid.UUID) {
-	uuidobj, _ = uuid.NewUUID()
-	return uuidobj
+func CreateUUID() (uuid.UUID, error) {
+	uuidobj, err := uuid.NewUUID()
+	if err != nil {
+		return uuidobj, errors.SetError(errors.ErrNewUUID, fmt.Sprintf("invalid uuid: %s", errors.ErrNewUUID))
+	}
+	return uuidobj, nil
 }

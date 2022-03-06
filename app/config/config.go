@@ -1,10 +1,12 @@
 package config
 
 import (
-	"github.com/kinari321/AkiyaDeGo/app/utils"
 	"log"
 	"os"
 	"time"
+
+	"github.com/kinari321/AkiyaDeGo/app/error"
+	"github.com/kinari321/AkiyaDeGo/app/utils"
 
 	"github.com/getsentry/sentry-go"
 	"github.com/joho/godotenv"
@@ -28,9 +30,9 @@ func init() {
 }
 
 func LoadConfig() {
+	utils.LoggingSettings(Config.LogFile)
 	Config = getDotEnv()
 	LoadSentry()
-	utils.LoggingSettings(Config.LogFile)
 }
 
 func getDotEnv() ConfigList {
@@ -57,7 +59,7 @@ func LoadSentry() {
 		Dsn: dsn,
 	})
 	if err != nil {
-		log.Fatalf("sentry.Init: %s", err)
+		log.Fatalf("sentry.Init: %s", error.StackTrace(err))
 	}
 	// Flush buffered events before the program terminates.
 	defer func() {

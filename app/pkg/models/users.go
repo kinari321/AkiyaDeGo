@@ -1,7 +1,6 @@
 package models
 
 import (
-	"log"
 	"time"
 )
 
@@ -32,14 +31,18 @@ func (u *User) CreateUser() (err error) {
  		email,
  		password,
  		created_at) VALUES (?, ?, ?, ?, ?)`
+	uuid, err := CreateUUID()
+	if err != nil {
+		return err
+	}
 	_, err = Db.Exec(cmd,
-		CreateUUID(),
+		uuid,
 		u.Name,
 		u.Email,
 		Encrypt(u.PassWord),
 		time.Now())
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 	return err
 }
@@ -63,7 +66,7 @@ func (u *User) UpdateUser() (err error) {
 	cmd := `UPDATE users SET name = ?, email = ? WHERE id = ?`
 	_, err = Db.Exec(cmd, u.Name, u.Email, u.ID)
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 	return err
 }
@@ -72,7 +75,7 @@ func (u *User) DeleteUser() (err error) {
 	cmd := `DELETE FROM users WHERE id = ?`
 	_, err = Db.Exec(cmd, u.ID)
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 	return err
 }
@@ -100,9 +103,13 @@ func (u *User) CreateSession() (session Session, err error) {
 		email,
 		user_id,
 		created_at) VALUES (?, ?, ?, ?)`
-	_, err = Db.Exec(cmd1, CreateUUID(), u.Email, u.ID, time.Now())
+	uuid, err := CreateUUID()
 	if err != nil {
-		log.Println(err)
+		return session, err
+	}
+	_, err = Db.Exec(cmd1, uuid, u.Email, u.ID, time.Now())
+	if err != nil {
+		return session, err
 	}
 
 	cmd2 := `SELECT id, uuid, email, user_id, created_at
@@ -127,7 +134,6 @@ func (sess *Session) CheckSession() (valid bool, err error) {
 		&sess.CreatedAt)
 	if err != nil {
 		valid = false
-		return
 	}
 	if sess.ID != 0 {
 		valid = true
@@ -139,7 +145,7 @@ func (sess *Session) DeleteSessionByUUID() (err error) {
 	cmd := `DELETE FROM sessions WHERE uuid = ?`
 	_, err = Db.Exec(cmd, sess.UUID)
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 	return err
 }
