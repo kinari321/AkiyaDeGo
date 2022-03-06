@@ -4,12 +4,14 @@ import (
 	"io"
 	"log"
 	"os"
+
+	"github.com/kinari321/AkiyaDeGo/app/errors"
 )
 
 func LoggingSettings(logFile string) {
 	logfile, err := os.OpenFile(logFile, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatalln(err)
+		log.Printf("load setting failed: %+v\n", errors.StackTrace(err))
 	}
 	multiLogFile := io.MultiWriter(os.Stdout, logfile)
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)

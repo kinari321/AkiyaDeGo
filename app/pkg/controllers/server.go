@@ -2,12 +2,13 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/kinari321/AkiyaDeGo/app/config"
-	"github.com/kinari321/AkiyaDeGo/app/pkg/models"
 	"html/template"
 	"net/http"
 	"regexp"
 	"strconv"
+
+	"github.com/kinari321/AkiyaDeGo/app/config"
+	"github.com/kinari321/AkiyaDeGo/app/pkg/models"
 )
 
 func generateHTML(w http.ResponseWriter, data interface{}, filenames ...string) {
@@ -24,9 +25,10 @@ func session(w http.ResponseWriter, r *http.Request) (sess models.Session, err e
 	if err == nil {
 		sess = models.Session{UUID: cookie.Value}
 		if ok, _ := sess.CheckSession(); !ok {
-			err = fmt.Errorf("Invalid session")
+			return sess, err
 		}
 	}
+
 	return sess, err
 }
 

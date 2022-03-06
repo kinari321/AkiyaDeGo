@@ -1,12 +1,18 @@
 package config
 
 import (
-	"github.com/kinari321/AkiyaDeGo/app/utils"
 	"log"
 	"os"
+	"time"
 
+	"github.com/kinari321/AkiyaDeGo/app/errors"
+	"github.com/kinari321/AkiyaDeGo/app/utils"
+
+	"github.com/getsentry/sentry-go"
 	"github.com/joho/godotenv"
 )
+
+var Config ConfigList
 
 type ConfigList struct {
 	Port       string
@@ -16,17 +22,17 @@ type ConfigList struct {
 	DBProtocol string
 	LogFile    string
 	Static     string
+	Sentry     string
 }
-
-var Config ConfigList
 
 func init() {
 	LoadConfig()
-	utils.LoggingSettings(Config.LogFile)
 }
 
 func LoadConfig() {
+	utils.LoggingSettings(Config.LogFile)
 	Config = getDotEnv()
+	LoadSentry()
 }
 
 func getDotEnv() ConfigList {
@@ -35,11 +41,34 @@ func getDotEnv() ConfigList {
 	if err != nil {
 		log.Println("Error loading .env file")
 	}
+	//TODO: envファイルの全大文字気持ち悪い
 	Config.DBName = os.Getenv("DBNAME")
 	Config.DBUser = os.Getenv("DBUSER")
 	Config.DBPass = os.Getenv("DBPASS")
 	Config.DBProtocol = os.Getenv("DBPROTOCOL")
 	Config.LogFile = os.Getenv("LOGFILE")
 	Config.Static = os.Getenv("STATIC")
+	Config.Sentry = os.Getenv("Sentry")
+
 	return Config
+}
+
+func LoadSentry() {
+	dsn := Config.Sentry
+	err := sentry.Init(sentry.ClientOptions{
+		Dsn: dsn,
+	})
+	if err != nil {
+		log.Fatalf("sentry.Init: %s", errors.StackTrace(err))
+	}
+	// Flush buffered events before the program terminates.
+	defer func() {
+		err := recover()
+
+		if err != nil {
+			sentry.CurrentHub().Recover(err)
+			sentry.Flush(time.Second * 5)
+		}
+	}()
+
 }
