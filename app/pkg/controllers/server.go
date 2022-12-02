@@ -2,12 +2,13 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/kinari321/AkiyaDeGo/app/config"
-	"github.com/kinari321/AkiyaDeGo/app/pkg/models"
 	"html/template"
 	"net/http"
 	"regexp"
 	"strconv"
+
+	"github.com/kinari321/AkiyaDeGo/app/config"
+	"github.com/kinari321/AkiyaDeGo/app/pkg/models"
 )
 
 func generateHTML(w http.ResponseWriter, data interface{}, filenames ...string) {

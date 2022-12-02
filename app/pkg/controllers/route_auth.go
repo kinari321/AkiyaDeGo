@@ -1,9 +1,10 @@
 package controllers
 
 import (
-	"github.com/kinari321/AkiyaDeGo/app/pkg/models"
 	"log"
 	"net/http"
+
+	"github.com/kinari321/AkiyaDeGo/app/pkg/models"
 )
 
 func handleSignup(w http.ResponseWriter, r *http.Request) {
@@ -41,6 +42,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleAuthenticate(w http.ResponseWriter, r *http.Request) {
+	// POSTメソッド
 	err := r.ParseForm()
 	user, err := models.GetUserByEmail(r.PostFormValue("email"))
 	if err != nil {

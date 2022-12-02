@@ -4,10 +4,11 @@ import (
 	"crypto/sha1"
 	"database/sql"
 	"fmt"
+	"log"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/uuid"
 	"github.com/kinari321/AkiyaDeGo/app/config"
-	"log"
 )
 
 var (
@@ -35,7 +36,7 @@ func init() {
 		log.Fatal(err)
 	}
 
-	cmdU := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
+	createTableUser := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
 		id INT NOT NULL AUTO_INCREMENT,
 		uuid TEXT NOT NULL,
 		name TEXT NULL,
@@ -43,9 +44,9 @@ func init() {
 		password TEXT NOT NULL,
 		created_at DATETIME NULL,
 		PRIMARY KEY (id));`, tableNameUser)
-	Db.Exec(cmdU)
+	Db.Exec(createTableUser)
 
-	cmdP := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
+	createTablePost := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
 		id INT NOT NULL AUTO_INCREMENT,
 		imagepath TEXT NULL,
 		title TEXT NOT NULL,
@@ -55,17 +56,16 @@ func init() {
 		user_id INT NOT NULL,
 		created_at DATETIME NULL,
 		PRIMARY KEY (id));`, tableNamePost)
-	Db.Exec(cmdP)
+	Db.Exec(createTablePost)
 
-	cmdS := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
+	createTableSession := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
 		id INT NOT NULL AUTO_INCREMENT,
 		uuid TEXT NOT NULL,
 		email TEXT NOT NULL,
 		user_id INT NOT NULL,
 		created_at DATETIME NULL,
 		PRIMARY KEY (id));`, tableNameSession)
-	Db.Exec(cmdS)
-
+	Db.Exec(createTableSession)
 }
 
 func Encrypt(plaintext string) (cryptext string) {

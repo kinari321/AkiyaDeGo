@@ -3,13 +3,14 @@ package models
 import (
 	"bytes"
 	"encoding/base64"
-	"github.com/nfnt/resize"
 	"image"
 	"image/jpeg"
 	_ "image/png"
 	"log"
 	"os"
 	"time"
+
+	"github.com/nfnt/resize"
 )
 
 type Post struct {
@@ -146,7 +147,7 @@ func (u *User) GetPostsByUser() (posts []Post, err error) {
 	return posts, err
 }
 
-// Updateは微妙！！！
+// Updateは微妙
 func (p *Post) UpdatePost() (err error) {
 	cmd := `UPDATE posts SET imagepath = ?, title = ?, category = ?, prefecture = ?,
 		description = ?, user_id = ? WHERE id = ?`
